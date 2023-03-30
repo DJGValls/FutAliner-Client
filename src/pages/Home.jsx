@@ -15,7 +15,7 @@ function Home() {
     if (isLoggedIn) {
       getData();
     }
-  }, []);
+  },[]);
 
   const getData = async () => {
     try {
@@ -28,11 +28,11 @@ function Home() {
     }
   };
 
-  if (isFetching) {
+  if (isFetching && isLoggedIn) {
     return <BallTriangle />;
   }
 
-  if (isLoggedIn) {
+  if (isLoggedIn === true) {
     return (
       <div>
         <h1>Home Logged</h1>
@@ -52,11 +52,7 @@ function Home() {
       </div>
     );
   } else {
-    return (
-      <div>
-        <h1>Home</h1>
-      </div>
-    );
+    return <h1>Home</h1>;
   }
 }
 
