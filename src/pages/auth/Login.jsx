@@ -30,7 +30,7 @@ function Login() {
       authenticateUser();
       
       console.log("estás logeado");
-    //   navigate("/user");
+      navigate("/");
     } catch (error) {
       if (error.response.status === 400) {
         setErrorMessage(error.response.data.errorMessage);
