@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { getUserService } from "../services/user.services";
 import { BallTriangle } from "react-loading-icons";
@@ -12,7 +12,9 @@ function Home() {
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
-    getData();
+    if (isLoggedIn) {
+      getData();
+    }
   }, []);
 
   const getData = async () => {
@@ -22,6 +24,7 @@ function Home() {
       setIsFetching(false);
     } catch (error) {
       navigate("/error");
+      console.log(error);
     }
   };
 
@@ -34,22 +37,27 @@ function Home() {
       <div>
         <h1>Home Logged</h1>
         <img src={user.image} alt="imagen de perfil" />
-        <h3>Bienvenido {user.firstName} {user.lastName} </h3>
+        <h3>
+          Bienvenido {user.firstName} {user.lastName}{" "}
+        </h3>
         <h3>lista de equipos</h3>
         <div>
-          <input type="submit" value="crear equipo" />
+          <Link to={"/team/create-team"}>
+            <input type="submit" value="crear equipo" />
+          </Link>
         </div>
         <div>
           <input type="submit" value="unirse a equipo" />
         </div>
       </div>
     );
+  } else {
+    return (
+      <div>
+        <h1>Home</h1>
+      </div>
+    );
   }
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
-  );
 }
 
 export default Home;
