@@ -4,14 +4,13 @@ import { AuthContext } from "../context/auth.context";
 import { getUserService } from "../services/user.services";
 import { BallTriangle } from "react-loading-icons";
 import { getTeamsService } from "../services/team.services";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 
 function Home() {
   const navigate = useNavigate();
   const { isLoggedIn, loggedUser } = useContext(AuthContext);
 
   const [user, setUser] = useState(null);
-  const [playersList, setPlayersList] = useState([])
-  const [teamList, setTeamList] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
@@ -24,11 +23,6 @@ function Home() {
     try {
       const foundUser = await getUserService(loggedUser._id);
       setUser(foundUser.data);
-      
-      foundUser.data.players.forEach(async eachPlayer => {
-        const foundTeam = await getTeamsService(eachPlayer)
-        return setTeamList(foundTeam)
-      });
       setIsFetching(false);
     } catch (error) {
       navigate("/error");
@@ -36,12 +30,9 @@ function Home() {
     }
   };
 
-  
-
   if (isFetching && isLoggedIn) {
     return <BallTriangle />;
   }
-  console.log(teamList);
 
   if (isLoggedIn) {
     return (
@@ -52,20 +43,20 @@ function Home() {
           Bienvenido {user.firstName} {user.lastName}{" "}
         </h3>
         <h3>lista de equipos</h3>
-        <select
-          name="team"
-          defaultValue="Selecciona un equipo"
-          // onChange={handleTeamChange}
-        >
-          <option value="Selecciona un equipo">Selecciona un equipo</option>
-          {/* {teamList.map((eachTeam) => {
+
+        <DropdownButton id="dropdown-basic-button" title="Selecciona un equipo">
+          {user.players.map((eachPlayer) => {
             return (
-              <option key={eachTeam._id} value={eachTeam._id}>
-                {eachTeam.teamName}
-              </option>
+              <Dropdown.Item
+                key={eachPlayer.team._id}
+                value={eachPlayer.team._id}
+                href={`/team/${eachPlayer._id}/team`}
+              >
+                {eachPlayer.team.teamName}
+              </Dropdown.Item>
             );
-          })} */}
-        </select>
+          })}
+        </DropdownButton>
         <div>
           <Link to={"/team/create-team"}>
             <input type="submit" value="crear equipo" />

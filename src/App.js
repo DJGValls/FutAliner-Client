@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import FormCreateTeam from "./components/FormCreateTeam";
 import FormCreateUser from "./components/FormCreateUser";
 
