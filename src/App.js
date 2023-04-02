@@ -9,6 +9,7 @@ import Login from "./pages/auth/Login";
 import Error from "./pages/errors/Error";
 import NotFound from "./pages/errors/NotFound";
 import Home from "./pages/Home";
+import FormJoinTeam from "./components/FormJoinTeam";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/user/create-user" element={<FormCreateUser />}></Route>
         <Route path="/team/create-team" element={<FormCreateTeam />}></Route>
+        <Route path="/team/join-team" element={<FormJoinTeam />}></Route>
+
 
         <Route path="/error" element={<Error />} />
         <Route path="*" element={<NotFound />} />

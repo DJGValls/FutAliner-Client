@@ -14,46 +14,41 @@ function NavBar() {
   };
 
   // logged
-  if (isLoggedIn) {
-    return (
+  return isLoggedIn ? (
+    <div>
       <div>
-        <div>
-          <NavLink>
-            <span onClick={handleLogout}>Salir</span>
-          </NavLink>
-        </div>
-        <div>
-          <NavLink to={"/"}>
-            <span>Home</span>
-          </NavLink>
-        </div>
+        <NavLink>
+          <span onClick={handleLogout}>Salir</span>
+        </NavLink>
       </div>
-    );
-  }
-  //  not logged
-  else {
-    return (
       <div>
-        <div>
-          <NavLink to={"/"}>
-            <span>Home</span>
-          </NavLink>
-        </div>
-
-        <div>
-          <NavLink to={"/login"}>
-            <span>Login</span>
-          </NavLink>
-        </div>
-
-        <div>
-          <NavLink to={"/user/create-user"}>
-            <span>Registrate</span>
-          </NavLink>
-        </div>
+        <NavLink to={"/"}>
+          <span>Home</span>
+        </NavLink>
       </div>
-    );
-  }
+    </div>
+  ) : (
+    //  not logged
+    <div>
+      <div>
+        <NavLink to={"/"}>
+          <span>Home</span>
+        </NavLink>
+      </div>
+
+      <div>
+        <NavLink to={"/login"}>
+          <span>Login</span>
+        </NavLink>
+      </div>
+
+      <div>
+        <NavLink to={"/user/create-user"}>
+          <span>Registrate</span>
+        </NavLink>
+      </div>
+    </div>
+  );
 }
 
 export default NavBar;
