@@ -26,6 +26,11 @@ function NavBar() {
           <span>Home</span>
         </NavLink>
       </div>
+      <div>
+        <NavLink to={"/user"}>
+          <span>Perfil</span>
+        </NavLink>
+      </div>
     </div>
   ) : (
     //  not logged
