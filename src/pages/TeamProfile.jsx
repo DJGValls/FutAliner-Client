@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { getPlayerService } from "../services/player.services";
 import { BallTriangle } from "react-loading-icons";
+import ModalVote from "../components/ModalVote";
 
 function TeamProfile() {
   const navigate = useNavigate();
@@ -83,11 +84,19 @@ function TeamProfile() {
         <h3>Jugadores</h3>
         <div>
           {users.map((eachPlayer) => {
-            return eachPlayer.user.nickName === "" ? 
-            (<p>{eachPlayer.user.firstName} {eachPlayer.user.lastName}</p>
+            return eachPlayer.user.nickName === "" ? (
+              <p key={eachPlayer.user._id} value={eachPlayer.user._id}>
+                {eachPlayer.user.firstName} {eachPlayer.user.lastName}
+                <ModalVote />
+                <br />
+              </p>
             ) : (
-                <p>{eachPlayer.user.firstName} "{eachPlayer.user.nickName}"</p>
-            ) 
+              <p key={eachPlayer.user._id} value={eachPlayer.user._id}>
+                {eachPlayer.user.firstName} "{eachPlayer.user.nickName}"
+                <ModalVote />
+                <br />
+              </p>
+            );
           })}
         </div>
       </section>
