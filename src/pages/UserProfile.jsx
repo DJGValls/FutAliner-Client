@@ -37,11 +37,12 @@ function UserProfile() {
       setUser(foundUser.data);
       setIsFetching(false);
     } catch (error) {
-      if (error.response.status === 404) {
-        navigate("/login");
-      } else {
-        navigate("/error");
-      }
+      // if (error.response.status == 401) {
+        //   navigate("/login");
+        // } else {
+          // }
+          navigate("/error");
+          console.log(error);
     }
   };
 
@@ -188,7 +189,7 @@ function UserProfile() {
       </section>
     </div>
   ) : (
-    <Navigate to={"/login"}></Navigate>
+    <Navigate to={("/login")}></Navigate>
   );
 }
 

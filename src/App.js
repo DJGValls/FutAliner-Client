@@ -11,6 +11,7 @@ import NotFound from "./pages/errors/NotFound";
 import Home from "./pages/Home";
 import FormJoinTeam from "./components/FormJoinTeam";
 import UserProfile from "./pages/UserProfile";
+import TeamProfile from "./pages/TeamProfile";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         <Route path="/user/create-user" element={<FormCreateUser />}></Route>
         <Route path="/team/create-team" element={<FormCreateTeam />}></Route>
         <Route path="/team/join-team" element={<FormJoinTeam />}></Route>
-
+        <Route path="/team/:playerId/team" element={<TeamProfile />}></Route>
 
         <Route path="/error" element={<Error />} />
         <Route path="*" element={<NotFound />} />

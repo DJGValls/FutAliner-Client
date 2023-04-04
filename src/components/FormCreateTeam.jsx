@@ -81,7 +81,7 @@ function FormCreateTeam() {
     </div>
   ) : (
     <div>
-      <Navigate to="/login"></Navigate>
+      <Navigate to={("/login")}></Navigate>
     </div>
   );
 }
