@@ -11,6 +11,7 @@ function TeamProfile() {
 
   const [player, setPlayer] = useState(null);
   const [team, setTeam] = useState(null);
+  const [users, setUsers] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
@@ -22,6 +23,12 @@ function TeamProfile() {
       const foundPlayer = await getPlayerService(playerId);
       setPlayer(foundPlayer.data);
       setTeam(foundPlayer.data.team);
+      setUsers(
+        foundPlayer.data.team.players
+        // foundPlayer.data.team.players.forEach(eachPlayer => {
+        //     console.log(eachPlayer.user);
+        // })
+      );
       setIsFetching(false);
     } catch (error) {
       navigate("/error");
@@ -36,6 +43,7 @@ function TeamProfile() {
   console.log(player);
   console.log(team);
   console.log(loggedUser);
+  console.log(users);
 
   return loggedUser._id === player.user ? (
     <div>
@@ -46,27 +54,41 @@ function TeamProfile() {
         </div>
         <br />
         <div>
-            <h3>{loggedUser.firstName} {loggedUser.lastName}</h3>
+          <h3>
+            {loggedUser.firstName} {loggedUser.lastName}
+          </h3>
         </div>
         <div>
-            <h4>Portero:</h4>
-            <p>{player.portero}</p>
+          <h4>Portero:</h4>
+          <p>{player.portero}</p>
         </div>
         <div>
-            <h4>Defensa:</h4>
-            <p>{player.defensa}</p>
+          <h4>Defensa:</h4>
+          <p>{player.defensa}</p>
         </div>
         <div>
-            <h4>Ataque:</h4>
-            <p>{player.ataque}</p>
+          <h4>Ataque:</h4>
+          <p>{player.ataque}</p>
         </div>
         <div>
-            <h4>Técnica:</h4>
-            <p>{player.tecnica}</p>
+          <h4>Técnica:</h4>
+          <p>{player.tecnica}</p>
         </div>
         <div>
-            <h4>Cardio:</h4>
-            <p>{player.cardio}</p>
+          <h4>Cardio:</h4>
+          <p>{player.cardio}</p>
+        </div>
+      </section>
+      <section>
+        <h3>Jugadores</h3>
+        <div>
+          {users.map((eachPlayer) => {
+            return eachPlayer.user.nickName === "" ? 
+            (<p>{eachPlayer.user.firstName} {eachPlayer.user.lastName}</p>
+            ) : (
+                <p>{eachPlayer.user.firstName} "{eachPlayer.user.nickName}"</p>
+            ) 
+          })}
         </div>
       </section>
     </div>
