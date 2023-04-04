@@ -6,7 +6,7 @@ import { BallTriangle } from "react-loading-icons";
 import { Form } from "react-bootstrap";
 
 function ChangeNames(props) {
-//   console.log(props);
+  //   console.log(props);
   const navigate = useNavigate;
   const { loggedUser } = useContext(AuthContext);
   const [firstName, setFirstName] = useState("");
@@ -19,7 +19,6 @@ function ChangeNames(props) {
 
   const [user, setUser] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
-  
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
@@ -47,7 +46,7 @@ function ChangeNames(props) {
       setUser(foundUser.data);
       setIsFetching(false);
     } catch (error) {
-        navigate("/error");
+      navigate("/error");
     }
   };
 
@@ -58,36 +57,43 @@ function ChangeNames(props) {
 
   return (
     <Form onSubmit={handleSubmitForm}>
-      <input
-        // className="form-control"
-        type="text"
-        name="firstName"
-        value={firstName}
-        placeholder={user.firstName}
-        onChange={handleFirstNameChange}
-      />
+      <div>
+        <input
+          // className="form-control"
+          type="text"
+          name="firstName"
+          value={firstName}
+          placeholder={user.firstName}
+          onChange={handleFirstNameChange}
+        />
+      </div>
       <br />
-      <input
-        // className="form-control"
-        type="text"
-        name="lastName"
-        value={lastName}
-        placeholder={user.lastName}
-        onChange={handleLastNameChange}
-      />
+      <div>
+        <input
+          // className="form-control"
+          type="text"
+          name="lastName"
+          value={lastName}
+          placeholder={user.lastName}
+          onChange={handleLastNameChange}
+        />
+      </div>
       <br />
-      <input
-        // className="form-control"
-        type="text"
-        name="nickName"
-        value={nickName}
-        placeholder={aboutNickName}
-        onChange={handleNickNameChange}
-      ></input>
+      <div>
+        <input
+          // className="form-control"
+          type="text"
+          name="nickName"
+          value={nickName}
+          placeholder={aboutNickName}
+          onChange={handleNickNameChange}
+        ></input>
+      </div>
       <br />
       <div>
         <input type="submit" value="Actualizar" />
       </div>
+      <br />
     </Form>
   );
 }

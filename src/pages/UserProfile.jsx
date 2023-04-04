@@ -5,6 +5,7 @@ import {
   editUserImageService,
   editUserMailService,
   editUserNamesService,
+  editUserPasswordService,
   getUserService,
 } from "../services/user.services";
 import { BallTriangle } from "react-loading-icons";
@@ -12,10 +13,11 @@ import { Collapse } from "react-bootstrap";
 import ChangeImage from "../components/ChangeImage";
 import ChangeNames from "../components/ChangeNames";
 import ChangeEmail from "../components/ChangeEmail";
+import ChangePassword from "../components/ChangePassword";
 
 function UserProfile() {
   const navigate = useNavigate;
-  const { isLoggedIn, loggedUser } = useContext(AuthContext);
+  const { isLoggedIn, loggedUser, authenticateUser } = useContext(AuthContext);
 
   const [user, setUser] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
@@ -23,7 +25,7 @@ function UserProfile() {
   const [isImageFormShowing, setIsImageFormShowing] = useState(false);
   const [isNamesFormShowing, setIsNamesFormShowing] = useState(false);
   const [isEmailFormShowing, setIsEmailFormShowing] = useState(false);
-
+  const [isPasswordFormShowing, SetIsPasswordFormShowing] = useState(false);
 
   useEffect(() => {
     getData();
@@ -85,6 +87,23 @@ function UserProfile() {
     }
   };
 
+  const changePassword = async (oldPassword, password1, password2) => {
+    try {
+      await editUserPasswordService(oldPassword, password1, password2);
+      SetIsPasswordFormShowing(!isPasswordFormShowing);
+      //Force logout
+      localStorage.removeItem("authToken");
+      authenticateUser();
+      navigate("/login");
+    } catch (error) {
+      if (error.response.status === 400) {
+        setErrorMessage(error.response.data.errorMessage);
+      } else {
+        navigate("/error");
+      }
+    }
+  };
+
   // const aboutNickName = user.nickName === "" ? "Mote" : user.nickNmae
 
   if (isFetching) {
@@ -130,9 +149,7 @@ function UserProfile() {
         </Collapse>
       </section>
       <section>
-        <h3>
-          {user.email}
-        </h3>
+        <h3>{user.email}</h3>
         <button
           onClick={() => setIsEmailFormShowing(!isEmailFormShowing)}
           className="btn btn-block"
@@ -147,6 +164,25 @@ function UserProfile() {
               ) : null}
             </div>
             <ChangeEmail changeEmail={changeEmail} />
+          </div>
+        </Collapse>
+      </section>
+      <section>
+        <h3>Password</h3>
+        <button
+          onClick={() => SetIsPasswordFormShowing(!isPasswordFormShowing)}
+          className="btn btn-block"
+        >
+          ✎
+        </button>
+        <Collapse in={isPasswordFormShowing}>
+          <div>
+            <div>
+              {errorMessage !== "" ? (
+                <p className="date-of-birth-text">{errorMessage}</p>
+              ) : null}
+            </div>
+            <ChangePassword changePassword={changePassword} />
           </div>
         </Collapse>
       </section>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Form } from "react-bootstrap";
 
 function ChangeEmail(props) {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ function ChangeEmail(props) {
     props.changeEmail(newEmail);
   };
   return (
-    <form onSubmit={handleSubmitForm}>
+    <Form onSubmit={handleSubmitForm}>
       <div>
         <input
         //   className="form-control"
@@ -26,10 +27,12 @@ function ChangeEmail(props) {
           onChange={handleEmailChange}
         />
       </div>
+      <br />
       <div>
         <input type="submit" value="Actualizar" />
       </div>
-    </form>
+      <br />
+    </Form>
   );
 }
 
