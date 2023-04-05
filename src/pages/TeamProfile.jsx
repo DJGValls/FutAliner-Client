@@ -24,12 +24,7 @@ function TeamProfile() {
       const foundPlayer = await getPlayerService(playerId);
       setPlayer(foundPlayer.data);
       setTeam(foundPlayer.data.team);
-      setUsers(
-        foundPlayer.data.team.players
-        // foundPlayer.data.team.players.forEach(eachPlayer => {
-        //     console.log(eachPlayer.user);
-        // })
-      );
+      setUsers(foundPlayer.data.team.players);
       setIsFetching(false);
     } catch (error) {
       navigate("/error");
@@ -60,6 +55,10 @@ function TeamProfile() {
           </h3>
         </div>
         <div>
+          <h4>Media Total:</h4>
+          <p>{player.total}</p>
+        </div>
+        <div>
           <h4>Portero:</h4>
           <p>{player.portero}</p>
         </div>
@@ -87,13 +86,13 @@ function TeamProfile() {
             return eachPlayer.user.nickName === "" ? (
               <p key={eachPlayer.user._id} value={eachPlayer.user._id}>
                 {eachPlayer.user.firstName} {eachPlayer.user.lastName}
-                <ModalVote />
+                <ModalVote player={eachPlayer} />
                 <br />
               </p>
             ) : (
               <p key={eachPlayer.user._id} value={eachPlayer.user._id}>
-                {eachPlayer.user.firstName} "{eachPlayer.user.nickName}"
-                <ModalVote />
+                "{eachPlayer.user.nickName}" {eachPlayer.user.lastName}
+                <ModalVote player={eachPlayer} />
                 <br />
               </p>
             );
