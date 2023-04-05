@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
+import { Nav, Navbar } from "react-bootstrap";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -14,44 +15,55 @@ function NavBar() {
   };
 
   // logged
-  return isLoggedIn ? (
-    <div>
-      <div>
-        <NavLink>
-          <span onClick={handleLogout}>Salir</span>
-        </NavLink>
+  return (
+    <div className="my-navbar">
+      {isLoggedIn ? (
+      <div className="container">
+        <Navbar>
+          <Nav>
+            <div>
+              <Nav.Link>
+                <span onClick={handleLogout}>Salir</span>
+              </Nav.Link>
+            </div>
+            <div>
+              <Nav.Link to={"/"}>
+                <span>Home</span>
+              </Nav.Link>
+            </div>
+            <div>
+              <Nav.Link to={"/user"}>
+                <span>Perfil</span>
+              </Nav.Link>
+            </div>
+          </Nav>
+        </Navbar>
       </div>
-      <div>
-        <NavLink to={"/"}>
-          <span>Home</span>
-        </NavLink>
-      </div>
-      <div>
-        <NavLink to={"/user"}>
-          <span>Perfil</span>
-        </NavLink>
-      </div>
-    </div>
-  ) : (
-    //  not logged
-    <div>
-      <div>
-        <NavLink to={"/"}>
-          <span>Home</span>
-        </NavLink>
-      </div>
+      ) : ( // not logged
+      <div className="container">
+        <Navbar>
+          <Nav>
+            <div>
+              <Nav.Link to={"/"}>
+                <span>Home</span>
+              </Nav.Link>
+            </div>
 
-      <div>
-        <NavLink to={"/login"}>
-          <span>Login</span>
-        </NavLink>
-      </div>
+            <div>
+              <Nav.Link to={"/login"}>
+                <span>Login</span>
+              </Nav.Link>
+            </div>
 
-      <div>
-        <NavLink to={"/user/create-user"}>
-          <span>Registrate</span>
-        </NavLink>
+            <div>
+              <Nav.Link to={"/user/create-user"}>
+                <span>Registrate</span>
+              </Nav.Link>
+            </div>
+          </Nav>
+        </Navbar>
       </div>
+      )}
     </div>
   );
 }

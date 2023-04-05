@@ -67,7 +67,12 @@ function Home() {
       </div>
     </div>
   ) : (
-    <h1>Home</h1>
+    <div>
+      <h1>Home</h1>
+      <div className="home-image">
+        <img src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680737166/FutAliner/FutAliner_r4c39y.png" alt="FutAliner" />
+      </div>
+    </div>
   );
 }
 
