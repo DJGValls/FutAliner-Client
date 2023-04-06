@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
-import { Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -18,51 +18,66 @@ function NavBar() {
   return (
     <div className="my-navbar">
       {isLoggedIn ? (
-      <div className="container">
-        <Navbar>
-          <Nav>
-            <div>
-              <Nav.Link>
-                <span onClick={handleLogout}>Salir</span>
-              </Nav.Link>
-            </div>
-            <div>
-              <Nav.Link to={"/"}>
-                <span>Home</span>
-              </Nav.Link>
-            </div>
-            <div>
-              <Nav.Link to={"/user"}>
-                <span>Perfil</span>
-              </Nav.Link>
-            </div>
-          </Nav>
-        </Navbar>
-      </div>
-      ) : ( // not logged
-      <div className="container">
-        <Navbar>
-          <Nav>
-            <div>
-              <Nav.Link to={"/"}>
-                <span>Home</span>
-              </Nav.Link>
-            </div>
-
-            <div>
-              <Nav.Link to={"/login"}>
-                <span>Login</span>
-              </Nav.Link>
-            </div>
-
-            <div>
-              <Nav.Link to={"/user/create-user"}>
-                <span>Registrate</span>
-              </Nav.Link>
-            </div>
-          </Nav>
-        </Navbar>
-      </div>
+        <div className="container">
+          <div className="d-flex">
+            <Navbar>
+              <Nav>
+                <div>
+                  <Nav.Link>
+                    <span onClick={handleLogout}>Salir</span>
+                  </Nav.Link>
+                </div>
+                <div>
+                  <Nav.Link to={"/"}>
+                    <span>Home</span>
+                  </Nav.Link>
+                </div>
+                <div>
+                  <Nav.Link to={"/user"}>
+                    <span>Perfil</span>
+                  </Nav.Link>
+                </div>
+              </Nav>
+            </Navbar>
+          </div>
+        </div>
+      ) : (
+        // not logged
+        <div className="container">
+        
+          <Navbar bg="warning" sticky="top" className="rounded-pill mt-3 ms-2">
+            <Container className="d-flex justify-content-between">
+              <Navbar.Brand href={"/"} id="navbar" className="text-center ms-5">
+                <img
+                id="image-navbar"
+                  alt=""
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680819507/FutAliner/home-green_sf4bob.png"
+                  className="d-inline-block align-top"
+                />
+                
+                
+              </Navbar.Brand>
+              <Navbar.Brand href={"/login"} id="navbar" className="text-center">
+                <img
+                id="image-navbar"
+                  alt=""
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680819682/FutAliner/entrar-green_ctdwuo.png"
+                  className="d-inline-block align-top"
+                />
+                
+              </Navbar.Brand>
+              <Navbar.Brand href={"/user/create-user"} id="navbar" className="text-center me-5">
+                <img
+                id="image-navbar"
+                  alt=""
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680819625/FutAliner/registrar-green_xhfnsn.png"
+                  className="d-inline-block align-top"
+                />
+                
+              </Navbar.Brand>
+            </Container>
+          </Navbar>
+        </div>
       )}
     </div>
   );

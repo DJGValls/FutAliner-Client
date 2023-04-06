@@ -1,16 +1,38 @@
-.App {
-  /* text-align: center; */
+html {
   background-color: #1aa48a;
-  height: 100%;
-  width: 100%;
+}
+.App {
+  background-color: #1aa48a;
+}
+
+/* Home */
+.home-text {
+  color: white;
 }
 
 /* Big Screen */
-/* NavBar */
 @media only screen and (max-width: 2000px) {
+  #navbar {
+    color: #1aa48a;
+  }
 
-  .home-image{
-    text-align: center;
+  #image-navbar {
+    width: 130px;
+    height: 80px;
+  }
+}
+
+/* Mobile */
+@media only screen and (max-width: 768px) {
+  #navbar {
+    color: #1aa48a;
+    width: 10px;
   }
   
+  #image-navbar {
+    width: 60px;
+    height: 35px;
+    margin-right: 10px;
+    margin-left: -30px;
+  }
 }
