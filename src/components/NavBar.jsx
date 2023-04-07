@@ -44,36 +44,35 @@ function NavBar() {
       ) : (
         // not logged
         <div className="container">
-        
           <Navbar bg="warning" sticky="top" className="rounded-pill mt-3 ms-2">
             <Container className="d-flex justify-content-between">
               <Navbar.Brand href={"/"} id="navbar" className="text-center ms-5">
                 <img
-                id="image-navbar"
+                  id="image-navbar"
                   alt=""
                   src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680819507/FutAliner/home-green_sf4bob.png"
                   className="d-inline-block align-top"
                 />
-                
-                
               </Navbar.Brand>
               <Navbar.Brand href={"/login"} id="navbar" className="text-center">
                 <img
-                id="image-navbar"
+                  id="image-navbar"
                   alt=""
-                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680819682/FutAliner/entrar-green_ctdwuo.png"
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680882326/FutAliner/ENTRA-GREEN_qernrt.png"
                   className="d-inline-block align-top"
                 />
-                
               </Navbar.Brand>
-              <Navbar.Brand href={"/user/create-user"} id="navbar" className="text-center me-5">
+              <Navbar.Brand
+                href={"/user/create-user"}
+                id="navbar"
+                className="text-center me-5"
+              >
                 <img
-                id="image-navbar"
+                  id="image-navbar"
                   alt=""
-                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680819625/FutAliner/registrar-green_xhfnsn.png"
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680882326/FutAliner/REGISTRATE-GREEN_qx0ref.png"
                   className="d-inline-block align-top"
                 />
-                
               </Navbar.Brand>
             </Container>
           </Navbar>

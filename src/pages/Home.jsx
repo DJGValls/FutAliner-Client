@@ -97,17 +97,37 @@ function Home() {
             <Carousel.Item className="mb-auto">
               <h3 className="text-center m-0 mt-3">Vota a tus compañeros</h3>
               <p className="text-center p-5 m-5 mt-0">
-                Vota todas las categorias de tus compañeros y mira tu puntuación.
+                Vota todas las categorias de tus compañeros y mira tu
+                puntuación.
               </p>
             </Carousel.Item>
             <Carousel.Item className="mb-auto">
-              <h3 className="text-center m-0 mt-3">Deja que FutAliner haga equipos</h3>
+              <h3 className="text-center m-0 mt-3">
+                Deja que FutAliner haga equipos
+              </h3>
               <p className="text-center p-5 m-5 mt-0">
-                Selecciona a los particifantes del partido y deja que FutAliner haga su magia y equilibre los equipos.
+                Selecciona a los particifantes del partido y deja que FutAliner
+                haga su magia y equilibre los equipos.
               </p>
             </Carousel.Item>
           </Carousel>
         </div>
+        <footer className="d-flex justify-content-evenly p-2 mt-1">
+          <Link to="https://www.linkedin.com/in/daniel-jimenez-07092754/">
+            <img
+              className="footer-image"
+              src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680885985/FutAliner/linkedin-logo-yellow_ukaxtj.png"
+              alt="Linkedin"
+            />
+          </Link>
+          <Link to="https://github.com/DJGValls">
+            <img
+              className="footer-image"
+              src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680885985/FutAliner/GitHub-Logo-yellow_k3hqoi.png"
+              alt="GitHub"
+            />
+          </Link>
+        </footer>
       </section>
     </div>
   );
