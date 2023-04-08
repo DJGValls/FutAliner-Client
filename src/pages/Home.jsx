@@ -35,7 +35,7 @@ function Home() {
   }
 
   return isLoggedIn ? (
-    <div>
+    <div className="row justify-content-center p-1 mt-auto">
       <h1>Home Logged</h1>
       <img src={user.image} alt="imagen de perfil" />
       <h3>
@@ -85,11 +85,11 @@ function Home() {
             <Carousel.Item className="mb-auto">
               <h3 className="text-center m-0 mt-3">Regístrate</h3>
               <p className="text-center p-5 m-5 mt-0">
-                Entra, registrate y deja que FutAliner haga equipos por ti.
+                Registrate, entra y adéntrate en FutAliner.
               </p>
             </Carousel.Item>
             <Carousel.Item className="mb-auto">
-              <h3 className="text-center m-0 mt-3">Crea un equipo o únete</h3>
+              <h3 className="text-center m-0 mt-3">Crea o únete a un equipo</h3>
               <p className="text-center p-5 m-5 mt-0">
                 Podrás formar parte de tantos equipos como desees.
               </p>
@@ -97,7 +97,7 @@ function Home() {
             <Carousel.Item className="mb-auto">
               <h3 className="text-center m-0 mt-3">Vota a tus compañeros</h3>
               <p className="text-center p-5 m-5 mt-0">
-                Vota todas las categorias de tus compañeros y mira tu
+                Vota todas las categorias de tus compañeros y mira su
                 puntuación.
               </p>
             </Carousel.Item>
@@ -106,7 +106,7 @@ function Home() {
                 Deja que FutAliner haga equipos
               </h3>
               <p className="text-center p-5 m-5 mt-0">
-                Selecciona a los particifantes del partido y deja que FutAliner
+                Selecciona a los participantes del partido y deja que FutAliner
                 haga su magia y equilibre los equipos.
               </p>
             </Carousel.Item>

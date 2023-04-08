@@ -1,7 +1,7 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Navbar } from "react-bootstrap";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -19,27 +19,38 @@ function NavBar() {
     <div className="my-navbar">
       {isLoggedIn ? (
         <div className="container">
-          <div className="d-flex">
-            <Navbar>
-              <Nav>
-                <div>
-                  <Nav.Link>
-                    <span onClick={handleLogout}>Salir</span>
-                  </Nav.Link>
-                </div>
-                <div>
-                  <Nav.Link to={"/"}>
-                    <span>Home</span>
-                  </Nav.Link>
-                </div>
-                <div>
-                  <Nav.Link to={"/user"}>
-                    <span>Perfil</span>
-                  </Nav.Link>
-                </div>
-              </Nav>
-            </Navbar>
-          </div>
+          <Navbar bg="warning" sticky="top" className="rounded-pill mt-3 ms-2">
+            <Container className="d-flex justify-content-between">
+              <Navbar.Brand href={"/"} id="navbar" className="text-center ms-5">
+                <img
+                  id="image-navbar"
+                  alt=""
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680820032/FutAliner/FutAliner_green-peque%C3%B1o_c6yefy.png"
+                  className="d-inline-block align-top"
+                />
+              </Navbar.Brand>
+              <Navbar.Brand href={"/user"} id="navbar" className="text-center">
+                <img
+                  id="image-navbar"
+                  alt=""
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680882326/FutAliner/PERFIL-GREEN_q5wl6j.png"
+                  className="d-inline-block align-top"
+                />
+              </Navbar.Brand>
+              <Navbar.Brand
+                onClick={handleLogout}
+                id="navbar"
+                className="text-center me-5"
+              >
+                <img
+                  id="image-navbar"
+                  alt=""
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680882326/FutAliner/SALIR-GREEN_ufgrcz.png"
+                  className="d-inline-block align-top"
+                />
+              </Navbar.Brand>
+            </Container>
+          </Navbar>
         </div>
       ) : (
         // not logged

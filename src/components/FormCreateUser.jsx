@@ -96,6 +96,9 @@ function FormCreateUser() {
                   placeholder="email"
                   onChange={handleEmailChange}
                 />
+                <Form.Text className="text-muted">
+                  No compartas tu email con nadie más
+                </Form.Text>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Control
@@ -114,6 +117,9 @@ function FormCreateUser() {
                   placeholder="repite contraseña"
                   onChange={handlePassword2Change}
                 />
+                <Form.Text className="text-muted">
+                El password debe tener al menos 6 caracteres, incluir una mayuscula y un caracter especial
+                </Form.Text>
               </Form.Group>
               <div>
                 {show ? (
