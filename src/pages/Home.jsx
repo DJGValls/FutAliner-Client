@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { getUserService } from "../services/user.services";
 import { BallTriangle } from "react-loading-icons";
-import { Dropdown, DropdownButton, Image } from "react-bootstrap";
+import { Button, Dropdown, DropdownButton } from "react-bootstrap";
+import Image from "react-bootstrap/Image";
 import Carousel from "react-bootstrap/Carousel";
 
 function Home() {
@@ -36,39 +37,74 @@ function Home() {
 
   return isLoggedIn ? (
     <div className="row justify-content-center p-1 mt-auto">
-      <h1>Home Logged</h1>
-      <img src={user.image} alt="imagen de perfil" />
-      <h3>
-        Bienvenido {user.firstName} {user.lastName}{" "}
-      </h3>
-      <h3>lista de equipos</h3>
-
-      <DropdownButton id="dropdown-basic-button" title="Selecciona un equipo">
-        {user.players.map((eachPlayer) => {
-          return (
-            <Dropdown.Item
-              key={eachPlayer.team._id}
-              value={eachPlayer.team._id}
-              href={`/team/${eachPlayer._id}/team`}
-            >
-              {eachPlayer.team.teamName}
-            </Dropdown.Item>
-          );
-        })}
-      </DropdownButton>
-      <div>
-        <Link to={"/team/create-team"}>
-          <input type="submit" value="crear equipo" />
-        </Link>
-      </div>
-      <div>
-        <Link to={"/team/join-team"}>
-          <input type="submit" value="unirse a equipo" />
-        </Link>
-      </div>
+      <section className="container mt-auto">
+        <div className="text-center">
+          <Image
+            src={user.image}
+            className="image-profile mt-4"
+            alt="imagen de perfil"
+          />
+          <h1 className="text-big-yellow mt-2">Bienvenido</h1>
+          <h4 className="text-big-medium-yellow">
+            {user.firstName} {user.lastName}{" "}
+          </h4>
+        </div>
+      </section>
+      <section className="container mt-auto">
+        <div className="text-center">
+          <section className="d-flex justify-content-center">
+            <div className="me-1">
+              <Link to={"/team/create-team"}>
+                <Button variant="warning" size="lg" type="submit">
+                  <img
+                    src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680987620/FutAliner/CREAR-EQUIPO-GREEN_qx0g8p.png"
+                    alt="Crear Equipo"
+                    width={120}
+                  />
+                </Button>
+              </Link>
+            </div>
+            <div className="ms-1">
+              <Link to={"/team/join-team"}>
+              <Button variant="warning" size="lg" type="submit">
+                  <img
+                    src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680987620/FutAliner/UNIRSE--EQUIPO-GREEN_gxpnf5.png"
+                    alt="Unirse a Equipo"
+                    width={120}
+                  />
+                </Button>
+              </Link>
+            </div>
+          </section>
+          <section className="mt-3">
+            <Dropdown className="d-inline mx-2">
+              <Dropdown.Toggle id="dropdown-autoclose-true" variant="warning">
+                <img
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680985212/FutAliner/SELECCIONA-EQUIPO-GREEN_xmpiiq.png"
+                  alt="Sellecciona Equipo"
+                  className="image-selecciona-equipo-button"
+                />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {user.players.map((eachPlayer) => {
+                  return (
+                    <Dropdown.Item
+                      key={eachPlayer.team._id}
+                      value={eachPlayer.team._id}
+                      href={`/team/${eachPlayer._id}/team`}
+                      className=""
+                    >
+                      {eachPlayer.team.teamName}
+                    </Dropdown.Item>
+                  );
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+          </section>
+        </div>
+      </section>
     </div>
   ) : (
-    // <div className="position-relative">
     <div className="row justify-content-center p-1 mt-auto">
       <section className="container mt-auto">
         <div className="text-center">
