@@ -9,7 +9,7 @@ import {
   getUserService,
 } from "../services/user.services";
 import { BallTriangle } from "react-loading-icons";
-import { Collapse } from "react-bootstrap";
+import { Collapse, Image } from "react-bootstrap";
 import ChangeImage from "../components/ChangeImage";
 import ChangeNames from "../components/ChangeNames";
 import ChangeEmail from "../components/ChangeEmail";
@@ -38,11 +38,11 @@ function UserProfile() {
       setIsFetching(false);
     } catch (error) {
       // if (error.response.status == 401) {
-        //   navigate("/login");
-        // } else {
-          // }
-          navigate("/error");
-          console.log(error);
+      //   navigate("/login");
+      // } else {
+      // }
+      navigate("/error");
+      console.log(error);
     }
   };
 
@@ -112,22 +112,36 @@ function UserProfile() {
   }
 
   return isLoggedIn ? (
-    <div>
-      <h1>UserProfile</h1>
-      <section>
-        <img src={user.image} alt="profile pic" />
-        <button
-          onClick={() => setIsImageFormShowing(!isImageFormShowing)}
-          className="btn btn-block"
-        >
-          ✎
-        </button>
-        <Collapse in={isImageFormShowing}>
-          <div>
-            <ChangeImage changeImage={changeImage} />
+    <div className="row justify-content-center p-1 mt-auto">
+      <section className="container mt-auto">
+        <div className="text-center">
+          <div className="mt-5">
+            <Image
+              src={user.image}
+              className="image-profile-edit mt4"
+              alt="profile pic"
+            />
+            <button
+              onClick={() => setIsImageFormShowing(!isImageFormShowing)}
+              className="btn btn-block"
+            >
+              <img
+                src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681076143/FutAliner/BOTON-EDITAR-YELLOW_psem4y.png"
+                alt="editar"
+                width={50}
+              />
+              
+              
+            </button>
+            <Collapse in={isImageFormShowing}>
+              <div>
+                <ChangeImage changeImage={changeImage} />
+              </div>
+            </Collapse>
           </div>
-        </Collapse>
+        </div>
       </section>
+
       <section>
         <h3>
           {user.firstName} {user.nickName} {user.lastName}
@@ -149,6 +163,7 @@ function UserProfile() {
           </div>
         </Collapse>
       </section>
+
       <section>
         <h3>{user.email}</h3>
         <button
@@ -168,6 +183,7 @@ function UserProfile() {
           </div>
         </Collapse>
       </section>
+
       <section>
         <h3>Password</h3>
         <button
@@ -189,7 +205,7 @@ function UserProfile() {
       </section>
     </div>
   ) : (
-    <Navigate to={("/login")}></Navigate>
+    <Navigate to={"/login"}></Navigate>
   );
 }
 

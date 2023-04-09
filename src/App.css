@@ -5,7 +5,7 @@ html {
   background-color: #1aa48a;
 }
 
-.test{
+.test {
   background: #9cb43b;
 }
 
@@ -37,7 +37,7 @@ html {
     color: #1aa48a;
   }
 
-  .image-selecciona-equipo-button{
+  .image-selecciona-equipo-button {
     width: 270px;
     height: 60px;
   }
@@ -52,6 +52,14 @@ html {
     border-radius: 50%;
     border-color: #ffc000;
     border-width: 40px;
+    border-style: double;
+  }
+
+  .image-profile-edit {
+    width: 150px;
+    border-radius: 50%;
+    border-color: #ffc000;
+    border-width: 20px;
     border-style: double;
   }
 
@@ -72,7 +80,7 @@ html {
     width: 10px;
   }
 
-  .image-selecciona-equipo-button{
+  .image-selecciona-equipo-button {
     width: 200px;
     height: 45px;
   }
