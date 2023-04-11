@@ -4,6 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import { getPlayerService } from "../services/player.services";
 import { BallTriangle } from "react-loading-icons";
 import ModalVote from "../components/ModalVote";
+import { Card, Col, Container, Image, Row } from "react-bootstrap";
 
 function TeamProfile() {
   const navigate = useNavigate();
@@ -42,42 +43,86 @@ function TeamProfile() {
   console.log(users);
 
   return loggedUser._id === player.user ? (
-    <div>
-      <h1>{team.teamName}</h1>
-      <section>
-        <div>
-          <img src={loggedUser.image} alt="imagen de perfil" />
-        </div>
-        <br />
-        <div>
-          <h3>
-            {loggedUser.firstName} {loggedUser.lastName}
-          </h3>
-        </div>
-        <div>
-          <h4>Media Total:</h4>
-          <p>{player.total}</p>
-        </div>
-        <div>
-          <h4>Portero:</h4>
-          <p>{player.portero}</p>
-        </div>
-        <div>
-          <h4>Defensa:</h4>
-          <p>{player.defensa}</p>
-        </div>
-        <div>
-          <h4>Ataque:</h4>
-          <p>{player.ataque}</p>
-        </div>
-        <div>
-          <h4>Técnica:</h4>
-          <p>{player.tecnica}</p>
-        </div>
-        <div>
-          <h4>Cardio:</h4>
-          <p>{player.cardio}</p>
-        </div>
+    <div className="">
+      <section className="container mt-auto">
+        <Container fluid>
+          <div className="">
+            <div className="mt-3">
+              <Row className="justify-content-center">
+                <Col xs="auto">
+                  <h1 className="text-big-yellow">{team.teamName}</h1>
+                </Col>
+              </Row>
+              <Card bg="warning" className="p-1">
+                <Card.Header className="text-center">
+                  <h2 className="mt-2 text-big-green">Ficha de mi Jugador</h2>
+                </Card.Header>
+                <Card.Title className="mt-2">
+                  <Row className="justify-content-left pt-2 ms-0">
+                    <Col xs="auto" className="d-flex justify-content-center">
+                      <Image
+                        src={loggedUser.image}
+                        alt="imagen de perfil"
+                        className="image-profile-team "
+                      />
+                    </Col>
+                    <Col xs="auto" className="d-flex justify-content-center">
+                      <h4 className="mt-2 text-green">
+                        {loggedUser.firstName} {loggedUser.lastName}
+                      </h4>
+                    </Col>
+                    <Col xs="auto">
+                      {/* <h4>Media Total:</h4> */}
+                      <h4 className="mt-2 text-big-green">{player.total}</h4>
+                    </Col>
+                  </Row>
+                </Card.Title>
+                <Card.Body>
+                  <Row className="justify-content-left ms-0 ">
+                    <Col xs="auto">
+                      <h4 className="text-green">Portero:</h4>
+                    </Col>
+                    <Col xs="auto">
+                      <h4 className="text-big-green">{player.portero}</h4>
+                    </Col>
+                  </Row>
+                  <Row className="justify-content-left ms-0">
+                    <Col xs="auto">
+                      <h4 className="text-green">Defensa:</h4>
+                    </Col>
+                    <Col xs="auto">
+                      <h4 className="text-big-green">{player.defensa}</h4>
+                    </Col>
+                  </Row>
+                  <Row className="justify-content-left ms-0">
+                    <Col xs="auto">
+                      <h4 className="text-green">Ataque:</h4>
+                    </Col>
+                    <Col xs="auto">
+                      <h4 className="text-big-green">{player.ataque}</h4>
+                    </Col>
+                  </Row>
+                  <Row className="justify-content-left ms-0">
+                    <Col xs="auto">
+                      <h4 className="text-green">Técnica:</h4>
+                    </Col>
+                    <Col xs="auto">
+                      <h4 className="text-big-green">{player.tecnica}</h4>
+                    </Col>
+                  </Row>
+                  <Row className="justify-content-left ms-0">
+                    <Col xs="auto">
+                      <h4 className="text-green">Cardio:</h4>
+                    </Col>
+                    <Col xs="auto">
+                      <h4 className="text-big-green">{player.cardio}</h4>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </div>
+          </div>
+        </Container>
       </section>
       <section>
         <h3>Jugadores</h3>
