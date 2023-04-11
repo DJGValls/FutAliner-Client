@@ -9,7 +9,7 @@ import {
   getUserService,
 } from "../services/user.services";
 import { BallTriangle } from "react-loading-icons";
-import { Collapse, Image } from "react-bootstrap";
+import { Col, Collapse, Container, Image, Row } from "react-bootstrap";
 import ChangeImage from "../components/ChangeImage";
 import ChangeNames from "../components/ChangeNames";
 import ChangeEmail from "../components/ChangeEmail";
@@ -26,6 +26,8 @@ function UserProfile() {
   const [isNamesFormShowing, setIsNamesFormShowing] = useState(false);
   const [isEmailFormShowing, setIsEmailFormShowing] = useState(false);
   const [isPasswordFormShowing, SetIsPasswordFormShowing] = useState(false);
+  
+
 
   useEffect(() => {
     getData();
@@ -105,6 +107,8 @@ function UserProfile() {
     }
   };
 
+  
+
   // const aboutNickName = user.nickName === "" ? "Mote" : user.nickNmae
 
   if (isFetching) {
@@ -114,94 +118,176 @@ function UserProfile() {
   return isLoggedIn ? (
     <div className="row justify-content-center p-1 mt-auto">
       <section className="container mt-auto">
-        <div className="text-center">
-          <div className="mt-5">
-            <Image
-              src={user.image}
-              className="image-profile-edit mt4"
-              alt="profile pic"
-            />
-            <button
-              onClick={() => setIsImageFormShowing(!isImageFormShowing)}
-              className="btn btn-block"
-            >
-              <img
-                src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681076143/FutAliner/BOTON-EDITAR-YELLOW_psem4y.png"
-                alt="editar"
-                width={50}
-              />
-              
-              
-            </button>
-            <Collapse in={isImageFormShowing}>
-              <div>
-                <ChangeImage changeImage={changeImage} />
-              </div>
-            </Collapse>
+        <Container fluid>
+          <div className="text-center">
+            <div className="mt-3">
+              <Row className="justify-content-center">
+                <Col xs="auto">
+                  <button
+                    onClick={() => setIsImageFormShowing(!isImageFormShowing)}
+                    className="btn btn-block"
+                  >
+                    <Image
+                      src={user.image}
+                      className="image-profile-edit"
+                      alt="profile pic"
+                    />
+                    <Image
+                      className="ms-2 mb-5"
+                      src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681076143/FutAliner/BOTON-EDITAR-YELLOW_psem4y.png"
+                      alt="editar"
+                      width={30}
+                    />
+                  </button>
+                </Col>
+              </Row>
+              <Row className="justify-content-center">
+                <Col lg="8">
+                  <Collapse in={isImageFormShowing}>
+                    <div>
+                      <ChangeImage changeImage={changeImage} />
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
+            </div>
           </div>
-        </div>
+        </Container>
+      </section>
+      <section className="container mt-auto">
+        <Container fluid>
+          <div className="text-center">
+            <div className="mt-2">
+              <Row className="justify-content-center">
+                <Col xs="auto">
+                  <button
+                    onClick={() => setIsNamesFormShowing(!isNamesFormShowing)}
+                    className="btn btn-block"
+                  >
+                    <Row>
+                      <Col xs="auto">
+                        <h4 className="text-big-medium-yellow">
+                          {user.firstName} {user.nickName} {user.lastName}
+                        </h4>
+                      </Col>
+                      <Col xs="auto">
+                        <Image
+                          src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681076143/FutAliner/BOTON-EDITAR-YELLOW_psem4y.png"
+                          alt="editar"
+                          width={15}
+                        />
+                      </Col>
+                    </Row>
+                  </button>
+                </Col>
+              </Row>
+              <Row className="justify-content-center">
+                <Col>
+                  <Collapse in={isNamesFormShowing}>
+                    <div>
+                      <div>
+                        {errorMessage !== "" ? (
+                          <p className="home-text">{errorMessage}</p>
+                        ) : null}
+                      </div>
+                      <ChangeNames changeNames={changeNames} />
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
+            </div>
+          </div>
+        </Container>
       </section>
 
       <section>
-        <h3>
-          {user.firstName} {user.nickName} {user.lastName}
-        </h3>
-        <button
-          onClick={() => setIsNamesFormShowing(!isNamesFormShowing)}
-          className="btn btn-block"
-        >
-          ✎
-        </button>
-        <Collapse in={isNamesFormShowing}>
-          <div>
-            <div>
-              {errorMessage !== "" ? (
-                <p className="date-of-birth-text">{errorMessage}</p>
-              ) : null}
+        <Container fluid>
+          <div className="text-center">
+            <div className="mt-2">
+              <Row className="justify-content-center">
+                <Col xs="auto">
+                  <button
+                    onClick={() => setIsEmailFormShowing(!isEmailFormShowing)}
+                    className="btn btn-block"
+                  >
+                    <Row>
+                      <Col xs="auto">
+                        <h4 className="text-big-medium-yellow">{user.email}</h4>
+                      </Col>
+                      <Col xs="auto">
+                        <Image
+                          src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681076143/FutAliner/BOTON-EDITAR-YELLOW_psem4y.png"
+                          alt="editar"
+                          width={15}
+                        />
+                      </Col>
+                    </Row>
+                  </button>
+                </Col>
+              </Row>
+              <Row className="justify-content-center">
+                <Col>
+                  <Collapse in={isEmailFormShowing}>
+                    <div>
+                      <div>
+                        {errorMessage !== "" ? (
+                          <p className="home-text">{errorMessage}</p>
+                        ) : null}
+                      </div>
+                      <ChangeEmail changeEmail={changeEmail} />
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
             </div>
-            <ChangeNames changeNames={changeNames} />
           </div>
-        </Collapse>
+        </Container>
       </section>
 
-      <section>
-        <h3>{user.email}</h3>
-        <button
-          onClick={() => setIsEmailFormShowing(!isEmailFormShowing)}
-          className="btn btn-block"
-        >
-          ✎
-        </button>
-        <Collapse in={isEmailFormShowing}>
-          <div>
-            <div>
-              {errorMessage !== "" ? (
-                <p className="date-of-birth-text">{errorMessage}</p>
-              ) : null}
+      <section className="container mt-auto">
+        <Container fluid>
+          <div className="text-center">
+            <div className="mt-2">
+              <Row className="justify-content-center">
+                <Col xs="auto">
+                  <button
+                    onClick={() =>
+                      SetIsPasswordFormShowing(!isPasswordFormShowing)
+                    }
+                    className="btn btn-block"
+                  >
+                    <Row>
+                      <Col xs="auto">
+                        <h4 className="text-big-medium-yellow">Password</h4>
+                      </Col>
+                      <Col xs="auto">
+                        <Image
+                          src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681076143/FutAliner/BOTON-EDITAR-YELLOW_psem4y.png"
+                          alt="editar"
+                          width={15}
+                        />
+                      </Col>
+                    </Row>
+                  </button>
+                </Col>
+              </Row>
+              <Row className="justify-content-center">
+                <Col>
+                  <Collapse in={isPasswordFormShowing}>
+                    <div>
+                      <div>
+                        {errorMessage !== "" ? (
+                          <p className="home-text">{errorMessage}</p>
+                        ) : null}
+                      </div>
+                      <ChangePassword changePassword={changePassword} />
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
             </div>
-            <ChangeEmail changeEmail={changeEmail} />
           </div>
-        </Collapse>
-      </section>
-
-      <section>
-        <h3>Password</h3>
-        <button
-          onClick={() => SetIsPasswordFormShowing(!isPasswordFormShowing)}
-          className="btn btn-block"
-        >
-          ✎
-        </button>
-        <Collapse in={isPasswordFormShowing}>
-          <div>
-            <div>
-              {errorMessage !== "" ? (
-                <p className="date-of-birth-text">{errorMessage}</p>
-              ) : null}
-            </div>
-            <ChangePassword changePassword={changePassword} />
-          </div>
-        </Collapse>
+        </Container>
       </section>
     </div>
   ) : (

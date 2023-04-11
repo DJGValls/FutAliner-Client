@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { getUserService } from "../services/user.services";
 import { BallTriangle } from "react-loading-icons";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 function ChangeNames(props) {
   //   console.log(props);
@@ -56,45 +56,61 @@ function ChangeNames(props) {
   const aboutNickName = user.nickName === "" ? "Mote" : user.nickName;
 
   return (
-    <Form onSubmit={handleSubmitForm}>
-      <div>
-        <input
-          // className="form-control"
-          type="text"
-          name="firstName"
-          value={firstName}
-          placeholder={user.firstName}
-          onChange={handleFirstNameChange}
-        />
+    <div className="d-flex justify-content-center pt-0 p-5">
+      <div className="row text-center pe-5 ps-5">
+        <section className="ps-5 pe-5">
+          <div className="ps-1 pe-1">
+            <Form onSubmit={handleSubmitForm}>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  // className="form-control"
+                  type="text"
+                  name="firstName"
+                  value={firstName}
+                  placeholder={user.firstName}
+                  onChange={handleFirstNameChange}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Control
+                  // className="form-control"
+                  type="text"
+                  name="lastName"
+                  value={lastName}
+                  placeholder={user.lastName}
+                  onChange={handleLastNameChange}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Control
+                  // className="form-control"
+                  type="text"
+                  name="nickName"
+                  value={nickName}
+                  placeholder={aboutNickName}
+                  onChange={handleNickNameChange}
+                />
+              </Form.Group>
+              <div className="form-group mx-sm-4 pb-4 pt-4">
+                <Button
+                  type="submit"
+                  variant="warning"
+                  className="btn btn-block"
+                >
+                  <img
+                    src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681079669/FutAliner/ACTUALIZAR-GREEN_e2akd2.png"
+                    alt="Actualizar"
+                    width={120}
+                  />
+                </Button>
+              </div>
+            </Form>
+          </div>
+        </section>
       </div>
-      <br />
-      <div>
-        <input
-          // className="form-control"
-          type="text"
-          name="lastName"
-          value={lastName}
-          placeholder={user.lastName}
-          onChange={handleLastNameChange}
-        />
-      </div>
-      <br />
-      <div>
-        <input
-          // className="form-control"
-          type="text"
-          name="nickName"
-          value={nickName}
-          placeholder={aboutNickName}
-          onChange={handleNickNameChange}
-        ></input>
-      </div>
-      <br />
-      <div>
-        <input type="submit" value="Actualizar" />
-      </div>
-      <br />
-    </Form>
+    </div>
   );
 }
 

@@ -100,6 +100,14 @@ html {
     border-style: double;
   }
 
+  .image-profile-edit {
+    width: 120px;
+    border-radius: 50%;
+    border-color: #ffc000;
+    border-width: 20px;
+    border-style: double;
+  }
+
   .big-logo-image {
     width: 350px;
   }
