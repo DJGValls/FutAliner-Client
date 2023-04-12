@@ -1,18 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/auth.context";
 import { Form } from "react-bootstrap";
-import { BallTriangle } from "react-loading-icons";
 import { editVoteService } from "../services/player.services";
 
 function ModalVote(player) {
   const navigate = useNavigate;
-  const { isLoggedIn } = useContext(AuthContext);
-
   const [show, setShow] = useState(false);
-  const [total, setTotal] = useState(0);
   const [portero, setPortero] = useState(0);
   const [defensa, setDefensa] = useState(0);
   const [ataque, setAtaque] = useState(0);
@@ -20,7 +15,6 @@ function ModalVote(player) {
   const [cardio, setCardio] = useState(0);
   const [selectedPlayer, setSelectedPlayer] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
-  const [isFetching, setIsFetching] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleClose = () => {
@@ -33,14 +27,14 @@ function ModalVote(player) {
     setSelectedPlayer(player.player);
     setSelectedUser(player.player.user);
   };
-  
+
   const handlePorteroChange = (e) => setPortero(e.target.value);
   const handleDefensaChange = (e) => setDefensa(e.target.value);
   const handleAtaqueChange = (e) => setAtaque(e.target.value);
   const handleTecnicaChange = (e) => setTecnica(e.target.value);
   const handleCardioChange = (e) => setCardio(e.target.value);
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const player = {
       portero,
@@ -48,9 +42,9 @@ function ModalVote(player) {
       ataque,
       tecnica,
       cardio,
-    }
+    };
     try {
-      await editVoteService(selectedPlayer._id, player)
+      await editVoteService(selectedPlayer._id, player);
     } catch (error) {
       if (error.response.status === 400) {
         setErrorMessage(error.response.data.errorMessage);
@@ -58,19 +52,20 @@ function ModalVote(player) {
         navigate("/error");
       }
     }
-  }
- 
-  console.log(selectedPlayer);
-
-  // if (isFetching) {
-  //   return <BallTriangle></BallTriangle>;
-  // }
+  };
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Vota
+      <Button variant="warning" onClick={handleShow}>
+        <img
+          src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681293160/FutAliner/CUALIFICAR_d4dkk6.png"
+          alt="cualificar"
+          width={40}
+        />
+        
       </Button>
+
+      
 
       <Modal
         show={show}
@@ -168,7 +163,9 @@ function ModalVote(player) {
             <Button variant="secondary" onClick={handleClose}>
               Cerrar
             </Button>
-            <Button type="submit" variant="primary">Votar</Button>
+            <Button type="submit" variant="primary">
+              Votar
+            </Button>
           </Modal.Footer>
         </Form>
       </Modal>
