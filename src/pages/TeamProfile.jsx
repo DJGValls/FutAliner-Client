@@ -1,21 +1,34 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { getPlayerService } from "../services/player.services";
 import { BallTriangle } from "react-loading-icons";
 import ModalVote from "../components/ModalVote";
-import { Card, Col, Container, Image, Row, Table } from "react-bootstrap";
+import { createTeamListGeneratorService } from "../services/team.services";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Image,
+  OverlayTrigger,
+  Row,
+  Table,
+  Tooltip,
+} from "react-bootstrap";
 
 function TeamProfile() {
   const navigate = useNavigate();
-  const { isLoggedIn, loggedUser } = useContext(AuthContext);
+  const { loggedUser } = useContext(AuthContext);
   const { playerId } = useParams();
 
   const [player, setPlayer] = useState(null);
   const [team, setTeam] = useState(null);
   const [users, setUsers] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
-  const [show, setShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [selectedPlayersList, setSelectedPlayersList] = useState([]);
 
   useEffect(() => {
     getData();
@@ -34,27 +47,49 @@ function TeamProfile() {
     }
   };
 
-  const handleClose = () => {
-    setShow(false);
+  const handleSelectPlayer = (e) => {
+    if (selectedPlayersList.includes(e.target.value)) {
+      setSelectedPlayersList(
+        selectedPlayersList.filter((sel) => sel !== e.target.value)
+      );
+    } else {
+      setSelectedPlayersList([...selectedPlayersList, e.target.value]);
+    }
   };
-  const handleShow = () => {
-    setShow(true);
-  };
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+
+    const newTeam = {
+      selectedPlayersList,
+    }
+    try {
+      console.log(newTeam);
+      await createTeamListGeneratorService(newTeam)
+      // navigate("/");
+    } catch (error) {
+      if (error.response.status === 400) {
+        setErrorMessage(error.response.data.errorMessage);
+      } else {
+        navigate("/error");
+      }
+    }
+  }
 
   if (isFetching) {
     return <BallTriangle></BallTriangle>;
   }
-
-  console.log(player);
-  console.log(team);
-  console.log(loggedUser);
-  console.log(users);
+  // console.log(player);
+  // console.log(team);
+  // console.log(loggedUser);
+  // console.log(users);
+  console.log(selectedPlayersList);
 
   return loggedUser._id === player.user ? (
-    <div>
+    <>
       <section className="container mt-auto">
         <Container fluid>
-          <div className="mt-3">
+          <section className="mt-3">
             <Row className="justify-content-center">
               <Col xs="auto">
                 <h1 className="text-big-yellow">{team.teamName}</h1>
@@ -177,7 +212,7 @@ function TeamProfile() {
                 </Table>
               </Card.Body>
             </Card>
-          </div>
+          </section>
         </Container>
       </section>
       <section className="container mt-auto">
@@ -189,7 +224,7 @@ function TeamProfile() {
             <Table responsive>
               <thead className="text-center">
                 <tr>
-                  <th className="text-green">Selecciona</th>
+                  <th className="text-green">Selección</th>
                   <th className="text-green">Cualifica</th>
                   <th className="text-green">Nombre</th>
                   <th className="text-green">Media</th>
@@ -230,113 +265,110 @@ function TeamProfile() {
                   </th>
                 </tr>
               </thead>
-              {users.map((eachPlayer) => {
-                return (
-                  <tbody>
-                    <tr>
-                      <td className="p-0">
-                        <div className="form-check form-switch d-flex justify-content-center mt-4">
+
+              <tbody>
+                {users.map((eachPlayer) => {
+                  return (
+                    <tr key={eachPlayer.user._id} value={eachPlayer.user._id}>
+                      <td className="pt-4 text-center">
+                        <section className="form-check form-switch">
                           <input
                             className="form-check-input"
                             type="checkbox"
                             role="switch"
                             id="flexSwitchCheckDefault"
-                            
+                            value={eachPlayer._id}
+                            onChange={handleSelectPlayer}
                           />
-                        </div>
-                        
+
+                          <OverlayTrigger
+                            trigger={["hover", "focus"]}
+                            placement="top"
+                            overlay={
+                              <Tooltip id={"tooltip-top"}>
+                                Selecciona este jugador para tu lista de
+                                asistentes al partido, cuando acabes tu
+                                selección pulsa "haz equipos"
+                              </Tooltip>
+                            }
+                          >
+                            <img
+                              src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681375371/FutAliner/INTERROGANTE-GREEN_dyvqgd.png"
+                              alt="Interrogante"
+                              width={20}
+                              className="me-auto"
+                            />
+                          </OverlayTrigger>
+                        </section>
                       </td>
                       <td className="p-0">
-                        <p
-                          key={eachPlayer.user._id}
-                          value={eachPlayer.user._id}
-                          className="d-flex justify-content-center mt-3"
-                        >
+                        <p className="d-flex justify-content-center mt-3">
                           <ModalVote player={eachPlayer} />
                         </p>
                       </td>
                       <td className="p-0">
                         {eachPlayer.user.nickName === "" ? (
-                          <p
-                            key={eachPlayer.user._id}
-                            value={eachPlayer.user._id}
-                            className="d-flex justify-content-center mt-4 text-green"
-                          >
+                          <p className="d-flex justify-content-center mt-4 text-green">
                             {eachPlayer.user.firstName}
                           </p>
                         ) : (
-                          <p
-                            key={eachPlayer.user._id}
-                            value={eachPlayer.user._id}
-                            className="d-flex justify-content-center mt-4 text-green"
-                          >
+                          <p className="d-flex justify-content-center mt-4 text-green">
                             "{eachPlayer.user.nickName}"{" "}
                           </p>
                         )}
                       </td>
                       <td className="p-0">
-                        <p
-                          key={eachPlayer.user._id}
-                          value={eachPlayer.user._id}
-                          className="d-flex justify-content-center mt-4 text-big-green"
-                        >
+                        <p className="d-flex justify-content-center mt-4 text-big-green">
                           {eachPlayer.total}
                         </p>
                       </td>
                       <td className="p-0">
-                        <p
-                          key={eachPlayer.user._id}
-                          value={eachPlayer.user._id}
-                          className="d-flex justify-content-center mt-4 text-big-green"
-                        >
+                        <p className="d-flex justify-content-center mt-4 text-big-green">
                           {eachPlayer.portero}
                         </p>
                       </td>
                       <td className="p-0">
-                        <p
-                          key={eachPlayer.user._id}
-                          value={eachPlayer.user._id}
-                          className="d-flex justify-content-center mt-4 text-big-green"
-                        >
+                        <p className="d-flex justify-content-center mt-4 text-big-green">
                           {eachPlayer.defensa}
                         </p>
                       </td>
                       <td className="p-0">
-                        <p
-                          key={eachPlayer.user._id}
-                          value={eachPlayer.user._id}
-                          className="d-flex justify-content-center mt-4 text-big-green"
-                        >
+                        <p className="d-flex justify-content-center mt-4 text-big-green">
                           {eachPlayer.ataque}
                         </p>
                       </td>
                       <td className="p-0">
-                        <p
-                          key={eachPlayer.user._id}
-                          value={eachPlayer.user._id}
-                          className="d-flex justify-content-center mt-4 text-big-green"
-                        >
+                        <p className="d-flex justify-content-center mt-4 text-big-green">
                           {eachPlayer.tecnica}
                         </p>
                       </td>
                       <td className="p-0">
-                        <p
-                          key={eachPlayer.user._id}
-                          value={eachPlayer.user._id}
-                          className="d-flex justify-content-center mt-4 text-big-green"
-                        >
+                        <p className="d-flex justify-content-center mt-4 text-big-green">
                           {eachPlayer.cardio}
                         </p>
                       </td>
                     </tr>
-                  </tbody>
-                );
-              })}
+                  );
+                })}
+              </tbody>
             </Table>
           </Card>
         </Container>
       </section>
-    </div>
+      <section className="container mt-3">
+        <Container fluid>
+          <section className="text-center">
+            <Button type="submit" variant="warning" className="btn btn-block" onClick={handleSubmit}>
+              <img
+                src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681331946/FutAliner/HAZ-EQUIPOS-GREEN_w5tryf.png"
+                alt="Haz Equipos"
+                width={120}
+              />
+            </Button>
+          </section>
+        </Container>
+      </section>
+    </>
   ) : (
     <Navigate to={"/login"} />
   );

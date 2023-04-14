@@ -9,6 +9,10 @@ html {
   background: #9cb43b;
 }
 
+.custom-tooltip {
+  --bs-tooltip-bg: var(--bs-warning);
+}
+
 /* Home */
 .home-text {
   color: white;

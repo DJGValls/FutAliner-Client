@@ -24,7 +24,7 @@ function NavBar() {
               <Navbar.Brand href={"/"} id="navbar" className="text-center ms-5">
                 <img
                   id="image-navbar"
-                  alt=""
+                  alt="Home"
                   src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680820032/FutAliner/FutAliner_green-peque%C3%B1o_c6yefy.png"
                   className="d-inline-block align-top"
                 />
@@ -32,7 +32,7 @@ function NavBar() {
               <Navbar.Brand href={"/user"} id="navbar" className="text-center">
                 <img
                   id="image-navbar"
-                  alt=""
+                  alt="Perfil"
                   src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680882326/FutAliner/PERFIL-GREEN_q5wl6j.png"
                   className="d-inline-block align-top"
                 />
@@ -44,7 +44,7 @@ function NavBar() {
               >
                 <img
                   id="image-navbar"
-                  alt=""
+                  alt="Salir"
                   src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680882326/FutAliner/SALIR-GREEN_ufgrcz.png"
                   className="d-inline-block align-top"
                 />
@@ -60,15 +60,15 @@ function NavBar() {
               <Navbar.Brand href={"/"} id="navbar" className="text-center ms-5">
                 <img
                   id="image-navbar"
-                  alt=""
-                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680819507/FutAliner/home-green_sf4bob.png"
+                  alt="Home"
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680820032/FutAliner/FutAliner_green-peque%C3%B1o_c6yefy.png"
                   className="d-inline-block align-top"
                 />
               </Navbar.Brand>
               <Navbar.Brand href={"/login"} id="navbar" className="text-center">
                 <img
                   id="image-navbar"
-                  alt=""
+                  alt="Login"
                   src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680882326/FutAliner/ENTRA-GREEN_qernrt.png"
                   className="d-inline-block align-top"
                 />
@@ -80,7 +80,7 @@ function NavBar() {
               >
                 <img
                   id="image-navbar"
-                  alt=""
+                  alt="Sign Up"
                   src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680882326/FutAliner/REGISTRATE-GREEN_qx0ref.png"
                   className="d-inline-block align-top"
                 />
