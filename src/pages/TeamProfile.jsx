@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { getPlayerService } from "../services/player.services";
+import { getOthersUsersService } from "../services/user.services";
 import { BallTriangle } from "react-loading-icons";
 import ModalVote from "../components/ModalVote";
 import { createTeamListGeneratorService } from "../services/team.services";
@@ -24,6 +25,8 @@ function TeamProfile() {
 
   const [player, setPlayer] = useState(null);
   const [team, setTeam] = useState(null);
+  const [teamA, setTeamA] = useState([]);
+  const [teamB, setTeamB] = useState([]);
   const [users, setUsers] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -57,24 +60,55 @@ function TeamProfile() {
     }
   };
 
-  const handleSubmit = async (e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newTeam = {
       selectedPlayersList,
-    }
+    };
     try {
+      let teamA = [];
+      let teamB = [];
+      let newTeamA = [];
+      let newTeamB = [];
       console.log(newTeam);
-      await createTeamListGeneratorService(newTeam)
+      const generatedTeams = await createTeamListGeneratorService(newTeam);
       // navigate("/");
+      // console.log(generatedTeams.data);
+      teamA = generatedTeams.data.slice(0,1);
+      teamB = generatedTeams.data.slice(1);
+      // console.log(teamA);
+      // console.log(teamB);
+
+      teamA.forEach((element) => {
+        element.forEach(async (player) => {
+          const foundPlayer = await getPlayerService(player._id);
+          const foundUserPlayer = await getOthersUsersService(
+            foundPlayer.data.user
+          );
+          await newTeamA.push(foundUserPlayer);
+          setTeamA(newTeamA);
+        });
+      });
+
+      teamB.forEach((element) => {
+        element.forEach(async (player) => {
+          const foundPlayer = await getPlayerService(player._id);
+          const foundUserPlayer = await getOthersUsersService(
+            foundPlayer.data.user
+          );
+          await newTeamB.push(foundUserPlayer);
+          setTeamB(newTeamB);
+        });
+      });
     } catch (error) {
-      if (error.response.status === 400) {
-        setErrorMessage(error.response.data.errorMessage);
-      } else {
-        navigate("/error");
-      }
+      console.log(error);
+      navigate("/error");
     }
-  }
+  };
+
+  console.log(teamA);
+  console.log(teamB);
 
   if (isFetching) {
     return <BallTriangle></BallTriangle>;
@@ -358,7 +392,12 @@ function TeamProfile() {
       <section className="container mt-3">
         <Container fluid>
           <section className="text-center">
-            <Button type="submit" variant="warning" className="btn btn-block" onClick={handleSubmit}>
+            <Button
+              type="submit"
+              variant="warning"
+              className="btn btn-block"
+              onClick={handleSubmit}
+            >
               <img
                 src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681331946/FutAliner/HAZ-EQUIPOS-GREEN_w5tryf.png"
                 alt="Haz Equipos"
@@ -366,6 +405,17 @@ function TeamProfile() {
               />
             </Button>
           </section>
+        </Container>
+      </section>
+
+      <section className="container mt-auto">
+        <Container fluid>
+          <Card bg="warning" className="p-1 mt-4">
+            <Card.Header className="text-center">
+              <h2 className="mt-2 text-big-green">Equipos Generados</h2>
+            </Card.Header>
+            <Card.Body></Card.Body>
+          </Card>
         </Container>
       </section>
     </>

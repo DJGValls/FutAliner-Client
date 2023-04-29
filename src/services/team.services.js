@@ -13,7 +13,7 @@ const joinTeamService = (team) => {
 };
 
 const createTeamListGeneratorService = (team) => {
-  return service.post("/team/selected-players", team )
+  return service.patch("/team/selected-players", team )
 };
 
 export {

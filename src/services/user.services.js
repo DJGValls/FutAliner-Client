@@ -8,6 +8,10 @@ const getUserService = (user) =>{
     return service.get("/user/user", user)
 }
 
+const getOthersUsersService = (user) =>{
+    return service.get(`/user/${user}/user`)
+}
+
 const editUserNamesService = (userNames) =>{
     return service.patch("/user/edit-names", userNames)
 }
@@ -37,4 +41,5 @@ export{
     editUserPasswordService,
     editUserImageService,
     deleteUserService,
+    getOthersUsersService,
 }
