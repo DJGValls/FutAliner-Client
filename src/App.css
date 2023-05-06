@@ -5,8 +5,45 @@ html {
   background-color: #1aa48a;
 }
 
-.test {
-  background: #9cb43b;
+.modal-bg-yellow {
+  background: #ffc000;
+}
+
+.modal-content { 
+  background: #ffc000 !important; 
+}
+
+.form-switch .form-check-input{
+  width: 35px !important;
+  height: 25px !important;
+}
+
+.form-check-input:checked {
+  background-color: #1aa48a !important;
+  border-color: #137a67 !important;
+}
+
+.form-check-input {
+ 
+  background-color: wheat !important;
+ 
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #1aa48a !important;
+  --bs-btn-border-color: #137a67 !important;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #137a67 !important;
+  --bs-btn-hover-border-color: #137a67 !important;
+  --bs-btn-focus-shadow-rgb: 49,132,253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #1aa48a !important;
+  --bs-btn-active-border-color: #0a53be;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #0d6efd;
+  --bs-btn-disabled-border-color: #0d6efd;
 }
 
 .custom-tooltip {

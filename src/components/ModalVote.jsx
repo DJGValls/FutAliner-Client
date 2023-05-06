@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
-import { Form } from "react-bootstrap";
+import { Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { editVoteService } from "../services/player.services";
 
 function ModalVote(player) {
@@ -45,6 +45,7 @@ function ModalVote(player) {
     };
     try {
       await editVoteService(selectedPlayer._id, player);
+      handleClose()
     } catch (error) {
       if (error.response.status === 400) {
         setErrorMessage(error.response.data.errorMessage);
@@ -57,15 +58,23 @@ function ModalVote(player) {
   return (
     <>
       <Button variant="warning" onClick={handleShow}>
-        <img
-          src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681293160/FutAliner/CUALIFICAR_d4dkk6.png"
-          alt="cualificar"
-          width={40}
-        />
-        
+        <OverlayTrigger
+          trigger={["hover", "focus"]}
+          
+          placement="top"
+          overlay={
+            <Tooltip id={"tooltip-top"}>
+              Clicka aquí para calificar a este jugador
+            </Tooltip>
+          }
+        >
+          <img
+            src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681293160/FutAliner/CUALIFICAR_d4dkk6.png"
+            alt="cualificar"
+            width={40}
+          />
+        </OverlayTrigger>
       </Button>
-
-      
 
       <Modal
         show={show}

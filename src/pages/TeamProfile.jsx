@@ -16,6 +16,7 @@ import {
   Row,
   Table,
   Tooltip,
+  Modal,
 } from "react-bootstrap";
 
 function TeamProfile() {
@@ -30,6 +31,7 @@ function TeamProfile() {
   const [users, setUsers] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [show, setShow] = useState(false);
 
   const [selectedPlayersList, setSelectedPlayersList] = useState([]);
 
@@ -67,38 +69,39 @@ function TeamProfile() {
       selectedPlayersList,
     };
     try {
-      let teamA = [];
-      let teamB = [];
+      // let teamA = [];
+      // let teamB = [];
+      // console.log(newTeam);
+      const generatedTeams = await createTeamListGeneratorService(newTeam);
+    
+      // navigate("/");
+      // console.log(generatedTeams);
       let newTeamA = [];
       let newTeamB = [];
-      console.log(newTeam);
-      const generatedTeams = await createTeamListGeneratorService(newTeam);
-      // navigate("/");
-      // console.log(generatedTeams.data);
-      teamA = generatedTeams.data.slice(0,1);
-      teamB = generatedTeams.data.slice(1);
+      let teamA = generatedTeams.data.slice(0, 1);
+      let teamB = generatedTeams.data.slice(1);
       // console.log(teamA);
       // console.log(teamB);
 
-      teamA.forEach((element) => {
+      teamA.forEach(async (element) => {
         element.forEach(async (player) => {
           const foundPlayer = await getPlayerService(player._id);
           const foundUserPlayer = await getOthersUsersService(
             foundPlayer.data.user
           );
           await newTeamA.push(foundUserPlayer);
-          setTeamA(newTeamA);
+          await setTeamA(newTeamA);
         });
       });
 
-      teamB.forEach((element) => {
+      teamB.forEach(async (element) => {
         element.forEach(async (player) => {
           const foundPlayer = await getPlayerService(player._id);
           const foundUserPlayer = await getOthersUsersService(
             foundPlayer.data.user
           );
           await newTeamB.push(foundUserPlayer);
-          setTeamB(newTeamB);
+          await setTeamB(newTeamB);
         });
       });
     } catch (error) {
@@ -107,8 +110,12 @@ function TeamProfile() {
     }
   };
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   console.log(teamA);
   console.log(teamB);
+  console.log(selectedPlayersList);
 
   if (isFetching) {
     return <BallTriangle></BallTriangle>;
@@ -117,7 +124,6 @@ function TeamProfile() {
   // console.log(team);
   // console.log(loggedUser);
   // console.log(users);
-  console.log(selectedPlayersList);
 
   return loggedUser._id === player.user ? (
     <>
@@ -342,42 +348,42 @@ function TeamProfile() {
                       </td>
                       <td className="p-0">
                         {eachPlayer.user.nickName === "" ? (
-                          <p className="d-flex justify-content-center mt-4 text-green">
+                          <p className="d-flex justify-content-center mt-4 text-green text-nowrap">
                             {eachPlayer.user.firstName}
                           </p>
                         ) : (
-                          <p className="d-flex justify-content-center mt-4 text-green">
+                          <p className="d-flex justify-content-center mt-4 text-green text-nowrap">
                             "{eachPlayer.user.nickName}"{" "}
                           </p>
                         )}
                       </td>
                       <td className="p-0">
-                        <p className="d-flex justify-content-center mt-4 text-big-green">
+                        <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
                           {eachPlayer.total}
                         </p>
                       </td>
                       <td className="p-0">
-                        <p className="d-flex justify-content-center mt-4 text-big-green">
+                        <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
                           {eachPlayer.portero}
                         </p>
                       </td>
                       <td className="p-0">
-                        <p className="d-flex justify-content-center mt-4 text-big-green">
+                        <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
                           {eachPlayer.defensa}
                         </p>
                       </td>
                       <td className="p-0">
-                        <p className="d-flex justify-content-center mt-4 text-big-green">
+                        <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
                           {eachPlayer.ataque}
                         </p>
                       </td>
                       <td className="p-0">
-                        <p className="d-flex justify-content-center mt-4 text-big-green">
+                        <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
                           {eachPlayer.tecnica}
                         </p>
                       </td>
                       <td className="p-0">
-                        <p className="d-flex justify-content-center mt-4 text-big-green">
+                        <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
                           {eachPlayer.cardio}
                         </p>
                       </td>
@@ -396,7 +402,8 @@ function TeamProfile() {
               type="submit"
               variant="warning"
               className="btn btn-block"
-              onClick={handleSubmit}
+              // onClick={handleSubmit}
+              onClick={handleShow}
             >
               <img
                 src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681331946/FutAliner/HAZ-EQUIPOS-GREEN_w5tryf.png"
@@ -408,16 +415,100 @@ function TeamProfile() {
         </Container>
       </section>
 
-      <section className="container mt-auto">
-        <Container fluid>
-          <Card bg="warning" className="p-1 mt-4">
-            <Card.Header className="text-center">
+      <Container fluid>
+        <Modal
+          
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+          className="modal-dialog-centered modal-lg"
+          
+        >
+          {/* header */}
+          <Modal.Header closeButton className="text-center">
+            <Modal.Title>
               <h2 className="mt-2 text-big-green">Equipos Generados</h2>
-            </Card.Header>
-            <Card.Body></Card.Body>
-          </Card>
-        </Container>
-      </section>
+            </Modal.Title>
+          </Modal.Header>
+
+          {/* Body */}
+          <Modal.Body>
+            <Row className="text-center">
+              <Col className="">
+                <img width={100} src="https://res.cloudinary.com/dn3vdudid/image/upload/v1683330028/FutAliner/TEAM-A-GREEN_aj7ndt.png" alt="Equipo Negro" />
+              </Col>
+              <Col className="">
+                <img width={100} src="https://res.cloudinary.com/dn3vdudid/image/upload/v1683330028/FutAliner/TEAM-B-GREEN_utvaxi.png" alt="Equipo Color" />
+              </Col>
+            </Row>
+            <Row className="text-center">
+              <Col className="pt-2">
+                {teamA.map((eachPlayer) => {
+                  return (
+                    <Row className="">
+                    {eachPlayer.data.nickName === "" ? (
+                          <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
+                            {eachPlayer.data.firstName}
+                          </p>
+                        ) : (
+                          <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
+                            "{eachPlayer.data.nickName}"{" "}
+                          </p>
+                        )}
+                    </Row>
+                  );
+                })}
+              </Col>
+              <Col className="pt-2">
+                {teamB.map((eachPlayer) => {
+                  return (
+                    <Row className="">
+                       {eachPlayer.data.nickName === "" ? (
+                          <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
+                            {eachPlayer.data.firstName}
+                          </p>
+                        ) : (
+                          <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
+                            "{eachPlayer.data.nickName}"{" "}
+                          </p>
+                        )}
+                    </Row>
+                  );
+                })}
+              </Col>
+            </Row>
+            {/* footer */}
+            <Row className="text-center">
+              <Col>
+                <h2>Puntos</h2>
+              </Col>
+              <Col>
+                <h2>Puntos</h2>
+              </Col>
+            </Row>
+          </Modal.Body>
+          <Modal.Footer className="justify-content-around">
+            
+            <section className="text-center">
+              <Button
+                type="submit"
+                // variant="warning"
+
+                className="btn btn-block"
+                onClick={handleSubmit}
+                // onClick={handleShow}
+              >
+                <img
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681331946/FutAliner/HAZ-EQUIPOS-YELLOW_mqfodz.png"
+                  alt="Haz Equipos"
+                  width={120}
+                />
+              </Button>
+            </section>
+          </Modal.Footer>
+        </Modal>
+      </Container>
     </>
   ) : (
     <Navigate to={"/login"} />
