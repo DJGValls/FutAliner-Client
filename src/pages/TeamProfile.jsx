@@ -28,6 +28,8 @@ function TeamProfile() {
   const [team, setTeam] = useState(null);
   const [teamA, setTeamA] = useState([]);
   const [teamB, setTeamB] = useState([]);
+  const [scoreA, setScoreA] = useState(0);
+  const [scoreB, setScoreB] = useState(0);
   const [users, setUsers] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -69,41 +71,12 @@ function TeamProfile() {
       selectedPlayersList,
     };
     try {
-      // let teamA = [];
-      // let teamB = [];
-      // console.log(newTeam);
       const generatedTeams = await createTeamListGeneratorService(newTeam);
-    
-      // navigate("/");
-      // console.log(generatedTeams);
-      let newTeamA = [];
-      let newTeamB = [];
-      let teamA = generatedTeams.data.slice(0, 1);
-      let teamB = generatedTeams.data.slice(1);
-      // console.log(teamA);
-      // console.log(teamB);
-
-      teamA.forEach(async (element) => {
-        element.forEach(async (player) => {
-          const foundPlayer = await getPlayerService(player._id);
-          const foundUserPlayer = await getOthersUsersService(
-            foundPlayer.data.user
-          );
-          await newTeamA.push(foundUserPlayer);
-          await setTeamA(newTeamA);
-        });
-      });
-
-      teamB.forEach(async (element) => {
-        element.forEach(async (player) => {
-          const foundPlayer = await getPlayerService(player._id);
-          const foundUserPlayer = await getOthersUsersService(
-            foundPlayer.data.user
-          );
-          await newTeamB.push(foundUserPlayer);
-          await setTeamB(newTeamB);
-        });
-      });
+      console.log(generatedTeams.data);
+      setTeamA(generatedTeams.data[0]);
+      setTeamB(generatedTeams.data[1]);
+      setScoreA(generatedTeams.data[2]);
+      setScoreB(generatedTeams.data[3]);
     } catch (error) {
       console.log(error);
       navigate("/error");
@@ -115,15 +88,13 @@ function TeamProfile() {
 
   console.log(teamA);
   console.log(teamB);
+  console.log(scoreA);
+  console.log(scoreB);
   console.log(selectedPlayersList);
 
   if (isFetching) {
     return <BallTriangle></BallTriangle>;
   }
-  // console.log(player);
-  // console.log(team);
-  // console.log(loggedUser);
-  // console.log(users);
 
   return loggedUser._id === player.user ? (
     <>
@@ -417,13 +388,11 @@ function TeamProfile() {
 
       <Container fluid>
         <Modal
-          
           show={show}
           onHide={handleClose}
           backdrop="static"
           keyboard={false}
           className="modal-dialog-centered modal-lg"
-          
         >
           {/* header */}
           <Modal.Header closeButton className="text-center">
@@ -436,10 +405,18 @@ function TeamProfile() {
           <Modal.Body>
             <Row className="text-center">
               <Col className="">
-                <img width={100} src="https://res.cloudinary.com/dn3vdudid/image/upload/v1683330028/FutAliner/TEAM-A-GREEN_aj7ndt.png" alt="Equipo Negro" />
+                <img
+                  width={100}
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1683330028/FutAliner/TEAM-A-GREEN_aj7ndt.png"
+                  alt="Equipo Negro"
+                />
               </Col>
               <Col className="">
-                <img width={100} src="https://res.cloudinary.com/dn3vdudid/image/upload/v1683330028/FutAliner/TEAM-B-GREEN_utvaxi.png" alt="Equipo Color" />
+                <img
+                  width={100}
+                  src="https://res.cloudinary.com/dn3vdudid/image/upload/v1683330028/FutAliner/TEAM-B-GREEN_utvaxi.png"
+                  alt="Equipo Color"
+                />
               </Col>
             </Row>
             <Row className="text-center">
@@ -447,15 +424,15 @@ function TeamProfile() {
                 {teamA.map((eachPlayer) => {
                   return (
                     <Row className="">
-                    {eachPlayer.data.nickName === "" ? (
-                          <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
-                            {eachPlayer.data.firstName}
-                          </p>
-                        ) : (
-                          <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
-                            "{eachPlayer.data.nickName}"{" "}
-                          </p>
-                        )}
+                      {eachPlayer.nickName === "" ? (
+                        <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
+                          {eachPlayer.firstName}
+                        </p>
+                      ) : (
+                        <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
+                          "{eachPlayer.nickName}"{" "}
+                        </p>
+                      )}
                     </Row>
                   );
                 })}
@@ -464,15 +441,15 @@ function TeamProfile() {
                 {teamB.map((eachPlayer) => {
                   return (
                     <Row className="">
-                       {eachPlayer.data.nickName === "" ? (
-                          <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
-                            {eachPlayer.data.firstName}
-                          </p>
-                        ) : (
-                          <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
-                            "{eachPlayer.data.nickName}"{" "}
-                          </p>
-                        )}
+                      {eachPlayer.nickName === "" ? (
+                        <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
+                          {eachPlayer.firstName}
+                        </p>
+                      ) : (
+                        <p className="d-flex justify-content-center mt-1 text-big-green text-nowrap">
+                          "{eachPlayer.nickName}"{" "}
+                        </p>
+                      )}
                     </Row>
                   );
                 })}
@@ -480,16 +457,17 @@ function TeamProfile() {
             </Row>
             {/* footer */}
             <Row className="text-center">
-              <Col>
-                <h2>Puntos</h2>
+              <Col className="pt-3">
+                <p className="text-big-green fw-bold fst-italic">Valoración Equipo</p>
+                <h3 className="text-big-green">{scoreA} pts</h3>
               </Col>
-              <Col>
-                <h2>Puntos</h2>
+              <Col className="pt-3">
+                <p className="text-big-green fw-bold fst-italic">Valoración Equipo</p>
+                <h3 className="text-big-green">{scoreB} pts</h3>
               </Col>
             </Row>
           </Modal.Body>
           <Modal.Footer className="justify-content-around">
-            
             <section className="text-center">
               <Button
                 type="submit"
