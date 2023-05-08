@@ -1,38 +1,193 @@
+html {
+  background-color: #1aa48a;
+}
 .App {
-  text-align: center;
+  background-color: #1aa48a;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.modal-bg-yellow {
+  background: #ffc000;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.modal-content { 
+  background: #ffc000 !important; 
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.form-switch .form-check-input{
+  width: 35px !important;
+  height: 25px !important;
+}
+
+.form-check-input:checked {
+  background-color: #1aa48a !important;
+  border-color: #137a67 !important;
+}
+
+.form-check-input {
+ 
+  background-color: wheat !important;
+ 
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #1aa48a !important;
+  --bs-btn-border-color: #137a67 !important;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #137a67 !important;
+  --bs-btn-hover-border-color: #137a67 !important;
+  --bs-btn-focus-shadow-rgb: 49,132,253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #1aa48a !important;
+  --bs-btn-active-border-color: #0a53be;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #0d6efd;
+  --bs-btn-disabled-border-color: #0d6efd;
+}
+
+.custom-tooltip {
+  --bs-tooltip-bg: var(--bs-warning);
+}
+
+/* Home */
+.home-text {
   color: white;
 }
+/*  */
 
-.App-link {
-  color: #61dafb;
+.text-big-yellow {
+  color: #ffc000;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.text-big-medium-yellow {
+  color: #debc13;
+}
+
+.text-medium-yellow {
+  color: #bdb827;
+}
+
+.text-low-yellow {
+  color: #9cb43b;
+}
+
+.text-green {
+  color: #1aa48a;
+}
+
+.text-big-green {
+  color: #137a67;
+}
+
+.text-low-green {
+  color: #28ceaf;
+}
+
+
+/* Big Screen */
+@media only screen and (max-width: 2000px) {
+  #navbar {
+    color: #1aa48a;
   }
-  to {
-    transform: rotate(360deg);
+
+  .image-selecciona-equipo-button {
+    width: 270px;
+    height: 60px;
+  }
+
+  #image-navbar {
+    width: 130px;
+    height: 80px;
+  }
+
+  .image-profile {
+    width: 350px;
+    border-radius: 50%;
+    border-color: #ffc000;
+    border-width: 40px;
+    border-style: double;
+  }
+
+  .image-profile-edit {
+    width: 150px;
+    border-radius: 50%;
+    border-color: #ffc000;
+    border-width: 20px;
+    border-style: double;
+  }
+
+  .image-profile-team {
+    width: 50px;
+    border-radius: 50%;
+    border-color: #1aa48a;
+    border-width: 4px;
+    border-style: solid;
+  }
+
+  /* footer */
+  .footer-image {
+    width: 80px;
+    /* color: #fff; */
+    /* border: 1px solid #214d76; */
+    /* box-shadow: 0px 0px 25px #222; */
+    /* backdrop-filter: blur(5px); */
+  }
+}
+
+/* Mobile */
+@media only screen and (max-width: 768px) {
+  #navbar {
+    color: #1aa48a;
+    width: 10px;
+  }
+
+  .image-selecciona-equipo-button {
+    width: 200px;
+    height: 45px;
+  }
+
+  #image-navbar {
+    width: 80px;
+    height: 50px;
+    margin-right: 0px;
+    margin-left: -40px;
+  }
+
+  .image-profile {
+    width: 200px;
+    border-radius: 50%;
+    border-color: #ffc000;
+    border-width: 25px;
+    border-style: double;
+  }
+
+  .image-profile-edit {
+    width: 120px;
+    border-radius: 50%;
+    border-color: #ffc000;
+    border-width: 20px;
+    border-style: double;
+  }
+
+  .image-profile-team {
+    width: 40px;
+    border-radius: 50%;
+    border-color: #1aa48a;
+    border-width: 4px;
+    border-style: solid;
+  }
+
+  .big-logo-image {
+    width: 350px;
+  }
+
+  /* footer */
+  .footer-image {
+    width: 40px;
+    /* color: #fff; */
+    /* border: 1px solid #214d76; */
+    /* box-shadow: 0px 0px 25px #222; */
+    /* backdrop-filter: blur(5px); */
   }
 }
