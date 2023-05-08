@@ -36,7 +36,11 @@ function AuthWrapper(props) {
   if (isFetching) {
     return (
       <div className="App">
-        <BallTriangle />
+        <div className="m-0 vh-100 row justify-content-center align-items-center">
+          <div className="col-auto text-center">
+            <BallTriangle stroke="#ffc000" strokeWidth={10} />
+          </div>
+        </div>
       </div>
     );
   }

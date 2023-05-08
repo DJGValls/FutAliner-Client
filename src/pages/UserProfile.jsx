@@ -26,8 +26,6 @@ function UserProfile() {
   const [isNamesFormShowing, setIsNamesFormShowing] = useState(false);
   const [isEmailFormShowing, setIsEmailFormShowing] = useState(false);
   const [isPasswordFormShowing, SetIsPasswordFormShowing] = useState(false);
-  
-
 
   useEffect(() => {
     getData();
@@ -107,12 +105,16 @@ function UserProfile() {
     }
   };
 
-  
-
   // const aboutNickName = user.nickName === "" ? "Mote" : user.nickNmae
 
   if (isFetching) {
-    return <BallTriangle />;
+    return (
+      <div className="m-0 vh-100 row justify-content-center align-items-center">
+        <div className="col-auto text-center">
+        <BallTriangle stroke="#ffc000" />
+        </div>
+      </div>
+    );
   }
 
   return isLoggedIn ? (

@@ -51,7 +51,13 @@ function ChangeNames(props) {
   };
 
   if (isFetching) {
-    return <BallTriangle />;
+    return (
+      <div className="m-0 vh-100 row justify-content-center align-items-center">
+        <div className="col-auto text-center">
+        <BallTriangle stroke="#ffc000" />
+        </div>
+      </div>
+    );
   }
   const aboutNickName = user.nickName === "" ? "Mote" : user.nickName;
 

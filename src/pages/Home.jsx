@@ -32,7 +32,13 @@ function Home() {
   };
 
   if (isFetching && isLoggedIn) {
-    return <BallTriangle />;
+    return (
+      <div className="m-0 vh-100 row justify-content-center align-items-center">
+        <div className="col-auto text-center">
+          <BallTriangle stroke="#ffc000" />
+        </div>
+      </div>
+    );
   }
 
   return isLoggedIn ? (
@@ -66,7 +72,7 @@ function Home() {
             </div>
             <div className="ms-1">
               <Link to={"/team/join-team"}>
-              <Button variant="warning" size="lg" type="submit">
+                <Button variant="warning" size="lg" type="submit">
                   <img
                     src="https://res.cloudinary.com/dn3vdudid/image/upload/v1680987620/FutAliner/UNIRSE--EQUIPO-GREEN_gxpnf5.png"
                     alt="Unirse a Equipo"

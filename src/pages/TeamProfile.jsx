@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { getPlayerService } from "../services/player.services";
-import { getOthersUsersService } from "../services/user.services";
 import { BallTriangle } from "react-loading-icons";
 import ModalVote from "../components/ModalVote";
 import { createTeamListGeneratorService } from "../services/team.services";
@@ -32,7 +31,7 @@ function TeamProfile() {
   const [scoreB, setScoreB] = useState(0);
   const [users, setUsers] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(false);
 
   const [selectedPlayersList, setSelectedPlayersList] = useState([]);
@@ -93,7 +92,13 @@ function TeamProfile() {
   console.log(selectedPlayersList);
 
   if (isFetching) {
-    return <BallTriangle></BallTriangle>;
+    return (
+      <div className="m-0 vh-100 row justify-content-center align-items-center">
+        <div className="col-auto text-center">
+        <BallTriangle stroke="#ffc000" />
+        </div>
+      </div>
+    );
   }
 
   return loggedUser._id === player.user ? (
