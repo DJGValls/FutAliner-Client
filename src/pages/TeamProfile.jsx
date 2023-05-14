@@ -143,7 +143,9 @@ function TeamProfile() {
                   </Col>
                   <Col xs="auto">
                     {/* <h4>Media Total:</h4> */}
-                    <h4 className="mt-2 text-big-green">{playerStats}</h4>
+                    <h4 className="mt-2 text-big-green">
+                      {playerStats.toFixed(1)}
+                    </h4>
                   </Col>
                 </Row>
               </Card.Title>
@@ -164,7 +166,9 @@ function TeamProfile() {
                         </Col>
 
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-big-green">{(player.portero).toFixed(2)}</h4>
+                          <h4 className="text-big-green">
+                            {player.portero.toFixed(2)}
+                          </h4>
                         </Col>
                       </Row>
                     </tr>
@@ -219,7 +223,9 @@ function TeamProfile() {
                           <h4 className="text-green">Nivel Técnico:</h4>
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-big-green">{(player.tecnica).toFixed(2)}</h4>
+                          <h4 className="text-big-green">
+                            {player.tecnica.toFixed(2)}
+                          </h4>
                         </Col>
                       </Row>
                     </tr>
@@ -236,7 +242,9 @@ function TeamProfile() {
                           <h4 className="text-green">Nivel Físico:</h4>
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-big-green">{(player.cardio).toFixed(2)}</h4>
+                          <h4 className="text-big-green">
+                            {player.cardio.toFixed(2)}
+                          </h4>
                         </Col>
                       </Row>
                     </tr>
@@ -331,8 +339,8 @@ function TeamProfile() {
                     4;
                   const checkIfGoalkeeper = () => {
                     if (goalkeeperStats > playerStats) {
-                      return goalkeeperStats;
-                    } else return playerStats;
+                      return (goalkeeperStats).toFixed(2);
+                    } else return (playerStats).toFixed(2);
                   };
                   return (
                     <tr key={eachPlayer.user._id} value={eachPlayer.user._id}>
@@ -354,13 +362,13 @@ function TeamProfile() {
                         </p>
                       </td>
                       <td xs="auto" className="p-0">
-                      <div className="d-flex justify-content-center mt-4">
-                        <Image
-                          src={eachPlayer.user.image}
-                          alt=""
-                          className="image-profile-team"
-                        />
-                      </div>
+                        <div className="d-flex justify-content-center mt-4">
+                          <Image
+                            src={eachPlayer.user.image}
+                            alt=""
+                            className="image-profile-team"
+                          />
+                        </div>
                       </td>
                       <td className="p-0">
                         {eachPlayer.user.nickName === "" ? (
@@ -380,27 +388,33 @@ function TeamProfile() {
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {(eachPlayer.portero).toFixed(2)}
+                          {eachPlayer.portero.toFixed(2)}
                         </p>
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {((eachPlayer.defensa + eachPlayer.cardio) / 2).toFixed(2)}
+                          {(
+                            (eachPlayer.defensa + eachPlayer.cardio) /
+                            2
+                          ).toFixed(2)}
                         </p>
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {((eachPlayer.ataque + eachPlayer.cardio) / 2).toFixed(2)}
+                          {(
+                            (eachPlayer.ataque + eachPlayer.cardio) /
+                            2
+                          ).toFixed(2)}
                         </p>
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {(eachPlayer.tecnica).toFixed(2)}
+                          {eachPlayer.tecnica.toFixed(2)}
                         </p>
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {(eachPlayer.cardio).toFixed(2)}
+                          {eachPlayer.cardio.toFixed(2)}
                         </p>
                       </td>
                     </tr>
