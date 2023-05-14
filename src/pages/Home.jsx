@@ -6,6 +6,7 @@ import { BallTriangle } from "react-loading-icons";
 import { Button, Dropdown } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import Carousel from "react-bootstrap/Carousel";
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 function Home() {
   const navigate = useNavigate();
@@ -45,11 +46,13 @@ function Home() {
     <div className="row justify-content-center p-1 mt-auto">
       <section className="container mt-auto">
         <div className="text-center">
-          <Image
-            src={user.image}
-            className="image-profile mt-4"
-            alt="imagen de perfil"
-          />
+          <div className="col h-100">
+            <img
+              src={user.image}
+              className="image-profile d-inline-block mt-4"
+              alt="imagen de perfil"
+            />
+          </div>
           <h1 className="text-big-yellow mt-2">Bienvenido</h1>
           <h4 className="text-big-medium-yellow">
             {user.firstName} {user.lastName}{" "}
@@ -91,21 +94,22 @@ function Home() {
                   className="image-selecciona-equipo-button"
                 />
               </Dropdown.Toggle>
-              <Dropdown.Menu>
+              <Dropdown.Menu> 
                 {user.players.map((eachPlayer) => {
                   return (
                     <Dropdown.Item
                       key={eachPlayer.team._id}
                       value={eachPlayer.team._id}
                       href={`/team/${eachPlayer._id}/team`}
-                      className=""
-                    >
+                      variant="warning"
+                      className="d-flex justify-content-center">
                       {eachPlayer.team.teamName}
                     </Dropdown.Item>
                   );
                 })}
               </Dropdown.Menu>
             </Dropdown>
+            
           </section>
         </div>
       </section>

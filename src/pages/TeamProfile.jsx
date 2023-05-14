@@ -24,6 +24,7 @@ function TeamProfile() {
   const { playerId } = useParams();
 
   const [player, setPlayer] = useState(null);
+  const [playerStats, setPlayerStats] = useState(null);
   const [team, setTeam] = useState(null);
   const [teamA, setTeamA] = useState([]);
   const [teamB, setTeamB] = useState([]);
@@ -43,9 +44,22 @@ function TeamProfile() {
   const getData = async () => {
     try {
       const foundPlayer = await getPlayerService(playerId);
+      const goalkeeperStats = foundPlayer.data.portero;
+      const playerStats =
+        (foundPlayer.data.defensa +
+          foundPlayer.data.tecnica +
+          foundPlayer.data.ataque +
+          foundPlayer.data.cardio) /
+        4;
+      const checkIfGoalkeeper = () => {
+        if (goalkeeperStats > playerStats) {
+          return setPlayerStats(goalkeeperStats);
+        } else setPlayerStats(playerStats);
+      };
       setPlayer(foundPlayer.data);
       setTeam(foundPlayer.data.team);
       setUsers(foundPlayer.data.team.players);
+      checkIfGoalkeeper();
       setIsFetching(false);
     } catch (error) {
       navigate("/error");
@@ -95,7 +109,7 @@ function TeamProfile() {
     return (
       <div className="m-0 vh-100 row justify-content-center align-items-center">
         <div className="col-auto text-center">
-        <BallTriangle stroke="#ffc000" />
+          <BallTriangle stroke="#ffc000" />
         </div>
       </div>
     );
@@ -120,18 +134,16 @@ function TeamProfile() {
                   <Col xs="auto" className="d-flex justify-content-center">
                     <Image
                       src={loggedUser.image}
-                      alt="imagen de perfil"
+                      alt=""
                       className="image-profile-team "
                     />
                   </Col>
                   <Col xs="auto" className="d-flex justify-content-center">
-                    <h4 className="mt-2 text-green">
-                      {loggedUser.firstName} {loggedUser.lastName}
-                    </h4>
+                    <h4 className="mt-2 text-green">{loggedUser.firstName}</h4>
                   </Col>
                   <Col xs="auto">
                     {/* <h4>Media Total:</h4> */}
-                    <h4 className="mt-2 text-big-green">{player.total}</h4>
+                    <h4 className="mt-2 text-big-green">{playerStats}</h4>
                   </Col>
                 </Row>
               </Card.Title>
@@ -148,7 +160,7 @@ function TeamProfile() {
                           />
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-green">Portero:</h4>
+                          <h4 className="text-green">Portería:</h4>
                         </Col>
 
                         <Col xs="auto" className="mt-3">
@@ -166,10 +178,12 @@ function TeamProfile() {
                           />
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-green">Defensa:</h4>
+                          <h4 className="text-green ms-0">Nivel Def:</h4>
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-big-green">{player.defensa}</h4>
+                          <h4 className="text-big-green ms-0">
+                            {(player.defensa + player.cardio) / 2}
+                          </h4>
                         </Col>
                       </Row>
                     </tr>
@@ -183,10 +197,12 @@ function TeamProfile() {
                           />
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-green">Ataque:</h4>
+                          <h4 className="text-green">Nivel Ata:</h4>
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-big-green">{player.ataque}</h4>
+                          <h4 className="text-big-green">
+                            {(player.ataque + player.cardio) / 2}
+                          </h4>
                         </Col>
                       </Row>
                     </tr>
@@ -200,7 +216,7 @@ function TeamProfile() {
                           />
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-green">Técnica:</h4>
+                          <h4 className="text-green">Nivel Técnico:</h4>
                         </Col>
                         <Col xs="auto" className="mt-3">
                           <h4 className="text-big-green">{player.tecnica}</h4>
@@ -217,7 +233,7 @@ function TeamProfile() {
                           />
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-green">Cardio:</h4>
+                          <h4 className="text-green">Nivel Físico:</h4>
                         </Col>
                         <Col xs="auto" className="mt-3">
                           <h4 className="text-big-green">{player.cardio}</h4>
@@ -240,8 +256,29 @@ function TeamProfile() {
             <Table responsive>
               <thead className="text-center">
                 <tr>
-                  <th className="text-green">Selección</th>
-                  <th className="text-green">Cualifica</th>
+                  <OverlayTrigger
+                    trigger={["hover", "focus"]}
+                    placement="top"
+                    overlay={
+                      <Tooltip id={"tooltip-top"}>
+                        Selecciona el jugador para tu lista de asistentes al
+                        partido, cuando acabes tu selección pulsa "haz equipos"
+                      </Tooltip>
+                    }>
+                    <th className="text-green">Selección</th>
+                  </OverlayTrigger>
+                  <OverlayTrigger
+                    trigger={["hover", "focus"]}
+                    placement="top"
+                    overlay={
+                      <Tooltip id={"tooltip-top"}>
+                        Pulsa el icono y califica a tu compañero
+                      </Tooltip>
+                    }>
+                    <th className="text-green">Califica</th>
+                  </OverlayTrigger>
+
+                  <th className="text-green">Perfil</th>
                   <th className="text-green">Nombre</th>
                   <th className="text-green">Media</th>
                   <th>
@@ -284,10 +321,23 @@ function TeamProfile() {
 
               <tbody>
                 {users.map((eachPlayer) => {
+                  console.log(eachPlayer);
+                  const goalkeeperStats = eachPlayer.portero;
+                  const playerStats =
+                    (eachPlayer.defensa +
+                      eachPlayer.tecnica +
+                      eachPlayer.ataque +
+                      eachPlayer.cardio) /
+                    4;
+                  const checkIfGoalkeeper = () => {
+                    if (goalkeeperStats > playerStats) {
+                      return goalkeeperStats;
+                    } else return playerStats;
+                  };
                   return (
                     <tr key={eachPlayer.user._id} value={eachPlayer.user._id}>
                       <td className="pt-4 text-center">
-                        <section className="form-check form-switch">
+                        <section className="form-check form-switch d-flex justify-content-center aling-items-center">
                           <input
                             className="form-check-input"
                             type="checkbox"
@@ -296,31 +346,21 @@ function TeamProfile() {
                             value={eachPlayer._id}
                             onChange={handleSelectPlayer}
                           />
-
-                          <OverlayTrigger
-                            trigger={["hover", "focus"]}
-                            placement="top"
-                            overlay={
-                              <Tooltip id={"tooltip-top"}>
-                                Selecciona este jugador para tu lista de
-                                asistentes al partido, cuando acabes tu
-                                selección pulsa "haz equipos"
-                              </Tooltip>
-                            }
-                          >
-                            <img
-                              src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681375371/FutAliner/INTERROGANTE-GREEN_dyvqgd.png"
-                              alt="Interrogante"
-                              width={20}
-                              className="me-auto"
-                            />
-                          </OverlayTrigger>
                         </section>
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-3">
                           <ModalVote player={eachPlayer} />
                         </p>
+                      </td>
+                      <td xs="auto" className="p-0">
+                      <div className="d-flex justify-content-center mt-4">
+                        <Image
+                          src={eachPlayer.user.image}
+                          alt=""
+                          className="image-profile-team"
+                        />
+                      </div>
                       </td>
                       <td className="p-0">
                         {eachPlayer.user.nickName === "" ? (
@@ -335,7 +375,7 @@ function TeamProfile() {
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {eachPlayer.total}
+                          {checkIfGoalkeeper()}
                         </p>
                       </td>
                       <td className="p-0">
@@ -345,12 +385,12 @@ function TeamProfile() {
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {eachPlayer.defensa}
+                          {(eachPlayer.defensa + eachPlayer.cardio) / 2}
                         </p>
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {eachPlayer.ataque}
+                          {(eachPlayer.ataque + eachPlayer.cardio) / 2}
                         </p>
                       </td>
                       <td className="p-0">
@@ -379,8 +419,7 @@ function TeamProfile() {
               variant="warning"
               className="btn btn-block"
               // onClick={handleSubmit}
-              onClick={handleShow}
-            >
+              onClick={handleShow}>
               <img
                 src="https://res.cloudinary.com/dn3vdudid/image/upload/v1681331946/FutAliner/HAZ-EQUIPOS-GREEN_w5tryf.png"
                 alt="Haz Equipos"
@@ -397,8 +436,7 @@ function TeamProfile() {
           onHide={handleClose}
           backdrop="static"
           keyboard={false}
-          className="modal-dialog-centered modal-lg"
-        >
+          className="modal-dialog-centered modal-lg">
           {/* header */}
           <Modal.Header closeButton className="text-center">
             <Modal.Title>
@@ -463,11 +501,15 @@ function TeamProfile() {
             {/* footer */}
             <Row className="text-center">
               <Col className="pt-3">
-                <p className="text-big-green fw-bold fst-italic">Valoración Equipo</p>
+                <p className="text-big-green fw-bold fst-italic">
+                  Valoración Equipo
+                </p>
                 <h3 className="text-big-green">{scoreA} pts</h3>
               </Col>
               <Col className="pt-3">
-                <p className="text-big-green fw-bold fst-italic">Valoración Equipo</p>
+                <p className="text-big-green fw-bold fst-italic">
+                  Valoración Equipo
+                </p>
                 <h3 className="text-big-green">{scoreB} pts</h3>
               </Col>
             </Row>

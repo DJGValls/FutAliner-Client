@@ -9,11 +9,11 @@ html {
   background: #ffc000;
 }
 
-.modal-content { 
-  background: #ffc000 !important; 
+.modal-content {
+  background: #ffc000 !important;
 }
 
-.form-switch .form-check-input{
+.form-switch .form-check-input {
   width: 35px !important;
   height: 25px !important;
 }
@@ -24,9 +24,7 @@ html {
 }
 
 .form-check-input {
- 
   background-color: wheat !important;
- 
 }
 
 .btn-primary {
@@ -36,7 +34,7 @@ html {
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #137a67 !important;
   --bs-btn-hover-border-color: #137a67 !important;
-  --bs-btn-focus-shadow-rgb: 49,132,253;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
   --bs-btn-active-color: #fff;
   --bs-btn-active-bg: #1aa48a !important;
   --bs-btn-active-border-color: #0a53be;
@@ -84,7 +82,6 @@ html {
   color: #28ceaf;
 }
 
-
 /* Big Screen */
 @media only screen and (max-width: 2000px) {
   #navbar {
@@ -103,14 +100,19 @@ html {
 
   .image-profile {
     width: 350px;
+    height: 350px;
     border-radius: 50%;
     border-color: #ffc000;
     border-width: 40px;
     border-style: double;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
   }
 
   .image-profile-edit {
     width: 150px;
+    height: 150px;
     border-radius: 50%;
     border-color: #ffc000;
     border-width: 20px;
@@ -119,6 +121,7 @@ html {
 
   .image-profile-team {
     width: 50px;
+    height: 50px;
     border-radius: 50%;
     border-color: #1aa48a;
     border-width: 4px;
@@ -156,14 +159,19 @@ html {
 
   .image-profile {
     width: 200px;
+    height: 200px;
     border-radius: 50%;
     border-color: #ffc000;
     border-width: 25px;
     border-style: double;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
   }
 
   .image-profile-edit {
     width: 120px;
+    height: 120px;
     border-radius: 50%;
     border-color: #ffc000;
     border-width: 20px;
@@ -172,6 +180,7 @@ html {
 
   .image-profile-team {
     width: 40px;
+    height: 40px;
     border-radius: 50%;
     border-color: #1aa48a;
     border-width: 4px;
