@@ -164,7 +164,7 @@ function TeamProfile() {
                         </Col>
 
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-big-green">{player.portero}</h4>
+                          <h4 className="text-big-green">{(player.portero).toFixed(2)}</h4>
                         </Col>
                       </Row>
                     </tr>
@@ -182,7 +182,7 @@ function TeamProfile() {
                         </Col>
                         <Col xs="auto" className="mt-3">
                           <h4 className="text-big-green ms-0">
-                            {(player.defensa + player.cardio) / 2}
+                            {((player.defensa + player.cardio) / 2).toFixed(2)}
                           </h4>
                         </Col>
                       </Row>
@@ -201,7 +201,7 @@ function TeamProfile() {
                         </Col>
                         <Col xs="auto" className="mt-3">
                           <h4 className="text-big-green">
-                            {(player.ataque + player.cardio) / 2}
+                            {((player.ataque + player.cardio) / 2).toFixed(2)}
                           </h4>
                         </Col>
                       </Row>
@@ -219,7 +219,7 @@ function TeamProfile() {
                           <h4 className="text-green">Nivel Técnico:</h4>
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-big-green">{player.tecnica}</h4>
+                          <h4 className="text-big-green">{(player.tecnica).toFixed(2)}</h4>
                         </Col>
                       </Row>
                     </tr>
@@ -236,7 +236,7 @@ function TeamProfile() {
                           <h4 className="text-green">Nivel Físico:</h4>
                         </Col>
                         <Col xs="auto" className="mt-3">
-                          <h4 className="text-big-green">{player.cardio}</h4>
+                          <h4 className="text-big-green">{(player.cardio).toFixed(2)}</h4>
                         </Col>
                       </Row>
                     </tr>
@@ -380,27 +380,27 @@ function TeamProfile() {
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {eachPlayer.portero}
+                          {(eachPlayer.portero).toFixed(2)}
                         </p>
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {(eachPlayer.defensa + eachPlayer.cardio) / 2}
+                          {((eachPlayer.defensa + eachPlayer.cardio) / 2).toFixed(2)}
                         </p>
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {(eachPlayer.ataque + eachPlayer.cardio) / 2}
+                          {((eachPlayer.ataque + eachPlayer.cardio) / 2).toFixed(2)}
                         </p>
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {eachPlayer.tecnica}
+                          {(eachPlayer.tecnica).toFixed(2)}
                         </p>
                       </td>
                       <td className="p-0">
                         <p className="d-flex justify-content-center mt-4 text-big-green text-nowrap">
-                          {eachPlayer.cardio}
+                          {(eachPlayer.cardio).toFixed(2)}
                         </p>
                       </td>
                     </tr>
